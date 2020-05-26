@@ -5,7 +5,7 @@ mkdir -p ~/Downloads ~/Developer/installs
 
 echo Installing apt packages
 sudo apt-get update
-sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet
+sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet fonts-powerline
 
 echo Installs subl
 sudo wget -O /usr/local/bin/subl https://raw.githubusercontent.com/aurora/rmate/master/rmate
