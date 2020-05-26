@@ -1,0 +1,138 @@
+#Personal
+
+
+Host *
+    AddKeysToAgent yes
+    UseKeychain yes
+    IdentityFile ~/.ssh/id_rsa
+
+Host turtle
+    HostName 66.31.16.203
+    User avery
+    Port 4022
+    #IdentityFile ~/.ssh/servers
+
+Host turtlel
+    HostName 192.168.99.33
+    User avery
+    IdentityFile ~/.ssh/servers
+
+Host turtle2
+    HostName 8.3.85.101
+    User avery
+    IdentityFile ~/.ssh/servers
+    Port 12000
+
+Host puppy
+    HostName 66.31.16.203
+    User averylamp
+    Port 8022
+
+Host seacow 
+    HostName seacow.averylamp.me
+    User avery
+    IdentityFile ~/.ssh/id_rsa
+    Port 13022 
+    RemoteForward 52698 localhost:52698
+
+Host seacowl
+    HostName 192.168.99.36
+    User avery
+    IdentityFile ~/.ssh/servers
+    Port 13022 
+
+Host seacow2
+    HostName 8.3.85.101
+    User avery
+    IdentityFile ~/.ssh/servers
+    Port 11001
+
+Host satori
+    Hostname satori-login-001.mit.edu
+    User alamp
+
+Host satori2
+    Hostname satori-login-002.mit.edu
+    User alamp
+
+Host bridge-dev
+    HostName 34.74.131.185
+    User averylamp 
+    IdentityFile ~/.ssh/gcp
+
+Host koala 
+    HostName koala.averylamp.me
+    User avery
+    IdentityFile ~/.ssh/id_rsa
+    Port 14022
+
+Host panda 
+    HostName panda.averylamp.me
+    User avery
+    IdentityFile ~/.ssh/id_rsa
+    Port 15022
+
+Host dragonfly 
+    HostName seacow.averylamp.me
+    User avery
+    IdentityFile ~/.ssh/id_rsa
+    Port 16022 
+    
+Host csail
+    HostName login.csail.mit.edu
+    User alamp
+
+Host jump.csail.mit.edu
+  GSSAPIAuthentication yes
+  VerifyHostKeyDNS yes
+  # optional, if X forwarding is desired
+  #ForwardX11 yes
+  # optional, if your local username does not match YOUR_CSAIL_USERNAME
+  User alamp
+
+
+Host *.csail.mit.edu !jump.csail.mit.edu 128.52.* 128.30.* 128.31.*
+  ProxyJump jump.csail.mit.edu
+  GSSAPIAuthentication yes
+  GSSAPIDelegateCredentials yes
+  # optional, if X forwarding is desired
+  #ForwardX11 yes
+  # optional, if your local username does not match YOUR_CSAIL_USERNAME
+  User alamp
+
+Host visiongpu*
+    Hostname %h.csail.mit.edu
+    User alamp
+    ServerAliveInterval 300
+
+Host slurm
+  User alamp
+  HostName sls-510-0.csail.mit.edu
+
+Host tegra
+    HostName 66.31.16.203
+    User avery
+    IdentityFile ~/.ssh/servers
+    Port 10022
+
+Host athena
+    HostName athena.dialup.mit.edu
+    User alamp
+
+Host apollo
+    HostName 18.9.64.26
+    User alamp
+
+Host iamballer
+    HostName iamballer.mit.edu
+    User itchair
+    IdentityFile ~/.ssh/zpserver
+
+Host iamballer2
+    HostName iamballer2.mit.edu
+    User itchair
+    IdentityFile ~/.ssh/id_zeta_psi
+
+Host zetapsi
+    HostName zetapsi.mit.edu
+    User itchair
