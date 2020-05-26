@@ -65,12 +65,14 @@ Host koala
     User avery
     IdentityFile ~/.ssh/id_rsa
     Port 14022
+    RemoteForward 52698 localhost:52698
 
 Host panda 
     HostName panda.averylamp.me
     User avery
     IdentityFile ~/.ssh/id_rsa
     Port 15022
+    RemoteForward 52698 localhost:52698
 
 Host dragonfly 
     HostName seacow.averylamp.me
