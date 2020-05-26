@@ -2,7 +2,7 @@
 
 echo Installing apt packages
 sudo apt-get update
-sudo apt-get -y install parallel vim git
+sudo apt-get -y install parallel vim git gnupg2
 
 echo Setup Zsh
 sudo apt-get -y install zsh curl wget
@@ -22,3 +22,17 @@ git config --global user.email "averylamp@gmail.com"
 git config --global user.name "Avery Lamp"
 git config --global core.editor "vim"
 
+yes "" | ssh-keygen -t rsa -b 4096 -N ""
+echo -e "SSH pubkey for github\n\n"
+cat ~/.ssh/id_rsa.pub
+echo -e "\n"
+
+echo -e "GPG key generation\n"
+
+if ! gpg --list-keys "Avery Lamp" ; then
+    echo -e "Creating gpg key\n"
+
+    gpg --batch --gen-key gen-key-script
+    gpg --armor --export "Avery Lamp"
+
+fi

@@ -1,0 +1,10 @@
+%no-protection
+Key-Type: default
+Key-Length: 4096
+Subkey-Type: 1
+Subkey-Length: 4096
+Name-Real: Avery Lamp
+Name-Email: averylamp@gmail.com
+Expire-Date: 0
+
+
