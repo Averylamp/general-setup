@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo Makes common directories
+mkdir -p ~/Downloads ~/Developer/installs
+
 echo Installing apt packages
 sudo apt-get update
 sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet
