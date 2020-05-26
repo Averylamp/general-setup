@@ -2,7 +2,7 @@
 
 echo Installing apt packages
 sudo apt-get update
-sudo apt-get -y install parallel vim git gnupg2 tmux
+sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet
 
 echo Setup Zsh
 sudo apt-get -y install zsh curl wget
@@ -17,6 +17,10 @@ echo installs oh my tmux
 git clone https://github.com/gpakosz/.tmux.git ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 cp ~/.tmux/.tmux.conf.local ~
+
+echo Updates motd
+line=$(hostname)
+sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line" | sudo tee -a /etc/update-motd.d/00-header
 
 
 echo copying dotfiles
@@ -40,6 +44,9 @@ if ! gpg --list-keys "Avery Lamp" ; then
     echo -e "Creating gpg key\n"
 
     gpg --batch --gen-key gen-key-script
+
+    echo -e "Printing gpg pubkey\n\n"
     gpg --armor --export "Avery Lamp"
+    echo -e "\n"
 
 fi
