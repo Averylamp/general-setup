@@ -57,3 +57,8 @@ if ! gpg --list-keys "Avery Lamp" ; then
     echo -e "\n"
 
 fi
+
+GPG_KEY_ID=$(gpg --list-secret-keys --keyid-format LONG "Avery Lamp" | grep sec | awk '{ print $2 }' | awk '{split($0, a, "/"); print a[2]}')
+git config --global user.signingkey $GPG_KEY_ID
+git config --global commit.gpgsign true
+
