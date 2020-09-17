@@ -5,7 +5,8 @@ mkdir -p ~/Downloads ~/Developer/installs
 
 echo Installing general apt packages
 sudo apt-get update
-sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https build-essential
+sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
+	build-essential ca-certificates curl gnupg-agent software-properties-common
 
 echo Installing app packages
 sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server emacs i3
@@ -33,11 +34,29 @@ cp ~/.tmux/.tmux.conf.local ~
 
 echo installs vscode
 wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository -r "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt-get install code
 
 echo installs spacemacs
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
+echo Install Docker
+sudo apt-get remove docker docker-engine docker.io containerd runc
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+sudo apt-key fingerprint 0EBFCD88
+sudo add-apt-repository -r \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+
 
 echo Updates motd
 line=$(hostname)
