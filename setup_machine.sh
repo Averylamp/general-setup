@@ -5,7 +5,7 @@ mkdir -p ~/Downloads ~/Developer/installs
 
 echo Installing apt packages
 sudo apt-get update
-sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet fonts-powerline
+sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet fonts-powerline openssh-server emacs
 
 echo Installs subl
 sudo wget -O /usr/local/bin/subl https://raw.githubusercontent.com/aurora/rmate/master/rmate
@@ -24,6 +24,9 @@ echo installs oh my tmux
 git clone https://github.com/gpakosz/.tmux.git ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 cp ~/.tmux/.tmux.conf.local ~
+
+echo installs spacemacs
+git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 echo Updates motd
 line=$(hostname)
