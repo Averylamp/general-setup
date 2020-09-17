@@ -3,9 +3,15 @@
 echo Makes common directories
 mkdir -p ~/Downloads ~/Developer/installs
 
-echo Installing apt packages
+echo Installing general apt packages
 sudo apt-get update
-sudo apt-get -y install parallel vim git gnupg2 tmux landscape-common figlet fonts-powerline openssh-server emacs i3
+sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https build-essential
+
+echo Installing app packages
+sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server emacs i3
+
+echo Installing tools
+sudo apt-get -y install htop nload iperf vnstat
 
 echo Installs subl
 sudo wget -O /usr/local/bin/subl https://raw.githubusercontent.com/aurora/rmate/master/rmate
@@ -24,6 +30,11 @@ echo installs oh my tmux
 git clone https://github.com/gpakosz/.tmux.git ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 cp ~/.tmux/.tmux.conf.local ~
+
+echo installs vscode
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt-get install code
 
 echo installs spacemacs
 git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
