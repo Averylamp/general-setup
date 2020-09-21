@@ -12,7 +12,7 @@ echo Installing app packages
 sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server emacs i3
 
 echo Installing tools
-sudo apt-get -y install htop nload iperf vnstat
+sudo apt-get -y install htop nload iperf vnstat lm-sensors hddtemp
 
 echo Installs subl
 sudo wget -O /usr/local/bin/subl https://raw.githubusercontent.com/aurora/rmate/master/rmate
