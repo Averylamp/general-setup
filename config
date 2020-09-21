@@ -1,27 +1,11 @@
 #Personal
-
-
 Host *
-    AddKeysToAgent yes
-    UseKeychain yes
     IdentityFile ~/.ssh/id_rsa
 
 Host turtle
     HostName 66.31.16.203
     User avery
     Port 4022
-    #IdentityFile ~/.ssh/servers
-
-Host turtlel
-    HostName 192.168.99.33
-    User avery
-    IdentityFile ~/.ssh/servers
-
-Host turtle2
-    HostName 8.3.85.101
-    User avery
-    IdentityFile ~/.ssh/servers
-    Port 12000
 
 Host puppy
     HostName 66.31.16.203
@@ -38,14 +22,7 @@ Host seacow
 Host seacowl
     HostName 192.168.99.36
     User avery
-    IdentityFile ~/.ssh/servers
-    Port 13022 
-
-Host seacow2
-    HostName 8.3.85.101
-    User avery
-    IdentityFile ~/.ssh/servers
-    Port 11001
+    Port 22 
 
 Host satori
     Hostname satori-login-001.mit.edu
@@ -54,11 +31,6 @@ Host satori
 Host satori2
     Hostname satori-login-002.mit.edu
     User alamp
-
-Host bridge-dev
-    HostName 34.74.131.185
-    User averylamp 
-    IdentityFile ~/.ssh/gcp
 
 Host koala 
     HostName koala.averylamp.me
@@ -121,7 +93,6 @@ Host slurm
 Host tegra
     HostName 66.31.16.203
     User avery
-    IdentityFile ~/.ssh/servers
     Port 10022
 
 Host athena
