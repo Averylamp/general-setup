@@ -57,6 +57,16 @@ sudo apt-get update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 
+echo Copies .configs over to configs
+rsync -rv --progress .config $HOME/.config
+
+echo Installs some fonts
+mkdir -p ~/.fonts/adobe-fonts/source-code-pro
+git clone https://github.com/adobe-fonts/source-code-pro.git ~/.fonts/adobe-fonts/source-code-pro
+find ~/.fonts/ -iname '*.ttf' -exec echo \{\} \;
+fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
+echo "finished installing"
+
 
 echo Updates motd
 line=$(hostname)
