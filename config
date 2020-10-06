@@ -39,6 +39,13 @@ Host koala
     Port 14022
     RemoteForward 52698 localhost:52698
 
+Host koalal
+    HostName 192.168.99.37
+    User avery
+    IdentityFile ~/.ssh/id_rsa
+    Port 22
+    RemoteForward 52698 localhost:52698
+
 Host panda 
     HostName panda.averylamp.me
     User avery
@@ -59,32 +66,25 @@ Host komodo
     Port 17022
     RemoteForward 52698 localhost:52698
 
-Host csail
-    HostName login.csail.mit.edu
-    User alamp
-
 Host jump.csail.mit.edu
-  GSSAPIAuthentication yes
-  VerifyHostKeyDNS yes
-  # optional, if X forwarding is desired
-  #ForwardX11 yes
-  # optional, if your local username does not match YOUR_CSAIL_USERNAME
-  User alamp
-
+    GSSAPIAuthentication yes
+    GSSAPIKeyExchange yes
+    User alamp
 
 Host *.csail.mit.edu !jump.csail.mit.edu 128.52.* 128.30.* 128.31.*
-  ProxyJump jump.csail.mit.edu
-  GSSAPIAuthentication yes
-  GSSAPIDelegateCredentials yes
-  # optional, if X forwarding is desired
-  #ForwardX11 yes
-  # optional, if your local username does not match YOUR_CSAIL_USERNAME
-  User alamp
-
-Host visiongpu*
-    Hostname %h.csail.mit.edu
+    ProxyJump jump.csail.mit.edu
+    GSSAPIAuthentication yes
+    GSSAPIDelegateCredentials yes
+    GSSAPIKeyExchange yes
     User alamp
-    ServerAliveInterval 300
+
+Host vision*
+    HostName %h.csail.mit.edu
+    ProxyJump jump.csail.mit.edu
+    GSSAPIAuthentication yes
+    GSSAPIKeyExchange yes
+    GSSAPIDelegateCredentials yes
+    User alamp
 
 Host slurm
   User alamp
