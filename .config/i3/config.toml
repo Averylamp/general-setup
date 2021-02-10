@@ -8,7 +8,7 @@ show_marks = "visible"
 
 [[block]]
 block = "nvidia_gpu"
-label = "2080 TI"
+label = "1080ti"
 show_memory = true
 show_clocks = true
 interval = 1

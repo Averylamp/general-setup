@@ -67,6 +67,10 @@ find ~/.fonts/ -iname '*.ttf' -exec echo \{\} \;
 fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
 echo "finished installing"
 
+echo Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+echo Install i3-status-rust
+cargo install --git https://github.com/greshake/i3status-rust i3status-rs
 
 echo Updates motd
 line=$(hostname)
