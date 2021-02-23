@@ -39,7 +39,7 @@ sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/v
 sudo apt-get install code
 
 echo installs spacemacs
-git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 echo Install Docker
 sudo apt-get remove docker docker-engine docker.io containerd runc
