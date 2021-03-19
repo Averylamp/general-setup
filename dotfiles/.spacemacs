@@ -25,7 +25,6 @@ This function should only modify configuration layer settings."
    dotspacemacs-ask-for-lazy-installation t
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/') dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load. dotspacemacs-configuration-layers '(systemd
    dotspacemacs-configuration-layer-path '()
    ;; ----------------------------------------------------------------
    ;; Example of useful layers you may want to use right away.
@@ -58,8 +57,8 @@ This function should only modify configuration layer settings."
      org
      (python :variables python-enable-yapf-format-on-save
              t python-format-on-save t python-sort-imports-on-save
-             t python-formatter 'yapf python-backend 'lsp
-             python-lsp-server 'pyright)
+             t python-formatter 'yapf 
+             )
      semantic
      shell-scripts
      (shell :variables shell-default-height
@@ -530,6 +529,10 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;; Text size
+  (global-set-key (kbd "C-+") 'text-scale-increase)
+  (global-set-key (kbd "C--") 'text-scale-decrease)
+
   ;; Redo enable
   (global-undo-tree-mode)
   (evil-set-undo-system 'undo-tree)
@@ -540,6 +543,7 @@ before packages are loaded."
                   'clang-format-region)
   (global-set-key [C-M-tab]
                   'yapfify-buffer)
+
   ;; Bind clang-format-buffer to tab on the c++-mode only:
 
   (add-hook 'c++-mode-hook 'clang-format-bindings)

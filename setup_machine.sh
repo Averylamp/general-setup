@@ -9,7 +9,7 @@ sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-ht
 	build-essential ca-certificates curl gnupg-agent software-properties-common
 
 echo Installing app packages
-sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server emacs i3
+sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server emacs i3 autojump
 
 echo Installing tools
 sudo apt-get -y install htop nload iperf vnstat lm-sensors hddtemp
@@ -20,6 +20,10 @@ sudo chmod a+x /usr/local/bin/subl
 
 echo Setup Zsh
 sudo apt-get -y install zsh curl wget
+
+echo install zinit
+mkdir $HOME/.zinit
+git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
 
 echo install oh my zsh
 yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
