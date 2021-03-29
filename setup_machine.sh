@@ -8,11 +8,21 @@ sudo apt-get update
 sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
 	build-essential ca-certificates curl gnupg-agent software-properties-common
 
+
 echo Installing app packages
-sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server emacs i3 autojump
+sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server
+
+
+echo Install i3
+sudp apt-get -y install rofi i3 autojump
+echo Install kitty
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+sudo ln -s $HOME/.local/kitty.app/bin/kitty /usr/bin/kitty
+sudo cp $HOME/.local/kitty.app/share/applications/kitty.dekstop /usr/share/applications
+
 
 echo Installing tools
-sudo apt-get -y install htop nload iperf vnstat lm-sensors hddtemp
+sudo apt-get -y install htop nload iperf vnstat lm-sensors hddtemp gnome-tweaks silversearcher-ag ripgrep
 
 echo Installs subl
 sudo wget -O /usr/local/bin/subl https://raw.githubusercontent.com/aurora/rmate/master/rmate
@@ -42,7 +52,8 @@ sudo add-apt-repository -r "deb [arch=amd64] https://packages.microsoft.com/repo
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt-get install code
 
-echo installs spacemacs
+echo Install spacemacs
+sudo apt-get -y install emacs
 git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 echo Install Docker
@@ -72,6 +83,9 @@ fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
 echo "finished installing"
 
 echo Install Rust
+echo Installing Rust Dependencies
+sudo apt-get update
+sudo apt-get -y install libdbus-1-dev pkg-config libssl-dev
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo Install i3-status-rust
 cargo install --git https://github.com/greshake/i3status-rust i3status-rs
@@ -81,8 +95,6 @@ line=$(hostname)
 sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line" | sudo tee -a /etc/update-motd.d/00-header
 
 
-echo copying dotfiles
-cp dotfiles/.[^.]*  $HOME
 
 sudo chsh -s $(which zsh) $USER
 
@@ -113,3 +125,5 @@ GPG_KEY_ID=$(gpg --list-secret-keys --keyid-format LONG "Avery Lamp" | grep sec 
 git config --global user.signingkey $GPG_KEY_ID
 git config --global commit.gpgsign true
 
+echo copying dotfiles
+cp dotfiles/.[^.]*  $HOME
