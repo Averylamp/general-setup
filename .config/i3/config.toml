@@ -8,7 +8,7 @@ show_marks = "visible"
 
 [[block]]
 block = "nvidia_gpu"
-label = "1080ti"
+label = "3080"
 show_memory = true
 show_clocks = true
 interval = 1
@@ -16,7 +16,7 @@ interval = 1
 
 [[block]]
 block= "net"
-speed_min_unit = "M"
+#speed_min_unit = "M"
 
 
 [[block]]
@@ -34,7 +34,7 @@ format = "{running}/{total}"
 block = "memory"
 display_type = "memory"
 clickable = false
-format_mem = "{Mup}%|{MFg}GB F"
+format_mem = "{mem_used_percents}%|{mem_free}GB F"
 format_swap = "{SUp}%"
 interval = 10
 

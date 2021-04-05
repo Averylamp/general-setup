@@ -6,7 +6,7 @@ mkdir -p ~/Downloads ~/Developer/installs
 echo Installing general apt packages
 sudo apt-get update
 sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
-	build-essential ca-certificates curl gnupg-agent software-properties-common
+	build-essential ca-certificates curl gnupg-agent software-properties-common fonts-font-awesome
 
 
 echo Installing app packages
