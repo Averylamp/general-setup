@@ -14,7 +14,7 @@ sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server
 
 
 echo Install i3
-sudp apt-get -y install rofi i3 autojump
+sudo apt-get -y install rofi i3 autojump
 echo Install kitty
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 sudo ln -s $HOME/.local/kitty.app/bin/kitty /usr/bin/kitty
