@@ -6,11 +6,11 @@ mkdir -p ~/Downloads ~/Developer/installs
 echo Installing general apt packages
 sudo apt-get update
 sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
-	build-essential ca-certificates curl gnupg-agent software-properties-common fonts-font-awesome
-
+	   build-essential ca-certificates curl gnupg-agent software-properties-common fonts-font-awesome \
+     cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev
 
 echo Installing app packages
-sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server
+sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server python3.8-venv libxcb-xfixes0-dev 
 
 
 echo Install i3
@@ -72,6 +72,13 @@ sudo apt-get update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 
+echo Installs Kubectl
+sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+
 echo Copies .configs over to configs
 rsync -rv --progress .config $HOME/.config
 
@@ -90,9 +97,24 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo Install i3-status-rust
 cargo install --git https://github.com/greshake/i3status-rust i3status-rs
 
+echo Install Alacritty
+sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+cargo install alacritty
+
 echo Updates motd
 line=$(hostname)
 sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line" | sudo tee -a /etc/update-motd.d/00-header
+
+echo Install Spotify
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get udpate && sudo apt-get install spotify-client
+
+echo Install Slack
+wget https://downloads.slack-edge.com/releases/linux/4.17.0/prod/x64/slack-desktop-4.17.0-amd64.deb -O slack.deb
+sudo dpkg -i slack.deb
+sudo apt-get update && sudo apt-get install slack-desktop
+rm slack.deb
 
 
 
