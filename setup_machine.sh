@@ -135,6 +135,11 @@ sudo dpkg -i slack.deb
 sudo apt-get update && sudo apt-get install slack-desktop
 rm slack.deb
 
+echo Install Zoom
+wget https://zoom.us/client/latest/zoom_amd64.deb -O zoom.deb
+sudo dpkg -i zoom.deb
+
+
 sudo chsh -s $(which zsh) $USER
 
 
