@@ -10,11 +10,18 @@ sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-ht
      cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev
 
 echo Installing app packages
-sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server python3.8-venv libxcb-xfixes0-dev 
+sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server libxcb-xfixes0-dev
 
+echo Install Python
+sudo apt-get install python3.8-venv python3.8
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3.8 get-pip.py
+rm get-pip.py
+pip install yapf
 
 echo Install i3
 sudo apt-get -y install rofi i3 autojump
+
 echo Install kitty
 curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 sudo ln -s $HOME/.local/kitty.app/bin/kitty /usr/bin/kitty
@@ -41,7 +48,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 echo installs oh my tmux
-
 git clone https://github.com/gpakosz/.tmux.git ~/.tmux
 ln -s -f ~/.tmux/.tmux.conf ~/.tmux.conf
 cp ~/.tmux/.tmux.conf.local ~
@@ -98,12 +104,21 @@ echo Install i3-status-rust
 cargo install --git https://github.com/greshake/i3status-rust i3status-rs
 
 echo Install Alacritty
-sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev 
 cargo install alacritty
 
 echo Updates motd
 line=$(hostname)
 sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line" | sudo tee -a /etc/update-motd.d/00-header
+
+echo Install Node
+curl -fsSL https://deb.nodesource.com/setup_16.x |  sudo bash
+sudo apt-get update && apt-get -y install nodejs
+sudo npm install -g npm
+sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
+
+sudo apt-get update && apt-get -y install nodejs npm
+npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
 echo Install Spotify
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
@@ -116,11 +131,10 @@ sudo dpkg -i slack.deb
 sudo apt-get update && sudo apt-get install slack-desktop
 rm slack.deb
 
-
-
 sudo chsh -s $(which zsh) $USER
 
 
+echo Configuring Git
 git config --global user.email "averylamp@gmail.com"
 git config --global user.name "Avery Lamp"
 git config --global core.editor "vim"
@@ -147,5 +161,5 @@ GPG_KEY_ID=$(gpg --list-secret-keys --keyid-format LONG "Avery Lamp" | grep sec 
 git config --global user.signingkey $GPG_KEY_ID
 git config --global commit.gpgsign true
 
-echo copying dotfiles
+echo Copying dotfiles
 cp dotfiles/.[^.]*  $HOME
