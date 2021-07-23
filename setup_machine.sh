@@ -7,7 +7,11 @@ echo Installing general apt packages
 sudo apt-get update
 sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
 	   build-essential ca-certificates curl gnupg-agent software-properties-common fonts-font-awesome \
-     cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev
+     cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev playerctl xclip xscreensaver mplayer
+
+#echo Install xscreensaver
+#wget https://raw.githubusercontent.com/graysky2/xscreensaver-aerial/master/atv4-4k.sh
+
 
 echo Installing app packages
 sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server libxcb-xfixes0-dev
@@ -17,7 +21,7 @@ sudo apt-get install python3.8-venv python3.8
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python3.8 get-pip.py
 rm get-pip.py
-pip install yapf
+pip install yapf importmagic isort epc
 
 echo Install i3
 sudo apt-get -y install rofi i3 autojump
@@ -104,7 +108,7 @@ echo Install i3-status-rust
 cargo install --git https://github.com/greshake/i3status-rust i3status-rs
 
 echo Install Alacritty
-sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev 
+sudo apt-get install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev
 cargo install alacritty
 
 echo Updates motd
@@ -121,7 +125,7 @@ sudo apt-get update && apt-get -y install nodejs npm
 npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
 echo Install Spotify
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get udpate && sudo apt-get install spotify-client
 
