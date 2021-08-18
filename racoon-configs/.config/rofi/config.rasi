@@ -1,0 +1,7 @@
+configuration {
+ modi: "window,drun,ssh,combi";
+ theme: "solarized";
+ font: "Avenir 18";
+ combi-modi: "window,drun,ssh";
+ }
+
