@@ -127,7 +127,7 @@ npm install -g pyright vscode-json-languageserver yaml-language-server bash-lang
 echo Install Spotify
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get udpate && sudo apt-get install spotify-client
+sudo apt-get update && sudo apt-get install spotify-client
 
 echo Install Slack
 wget https://downloads.slack-edge.com/releases/linux/4.17.0/prod/x64/slack-desktop-4.17.0-amd64.deb -O slack.deb
