@@ -42,10 +42,6 @@ sudo chmod a+x /usr/local/bin/subl
 echo Setup Zsh
 sudo apt-get -y install zsh curl wget
 
-echo install zinit
-mkdir $HOME/.zinit
-git clone https://github.com/zdharma/zinit.git ~/.zinit/bin
-
 echo install oh my zsh
 yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -117,15 +113,16 @@ sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line
 
 echo Install Node
 curl -fsSL https://deb.nodesource.com/setup_16.x |  sudo bash
-sudo apt-get update && apt-get -y install nodejs
+sudo apt-get -y update && sudo apt-get -y install nodejs
 sudo npm install -g npm
 sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
-sudo apt-get update && apt-get -y install nodejs npm
-npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
+sudo apt-get -y update && apt-get -y install nodejs npm
+sudo npm install -g npm
+sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
 echo Install Spotify
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add -
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update && sudo apt-get install spotify-client
 
@@ -137,7 +134,9 @@ rm slack.deb
 
 echo Install Zoom
 wget https://zoom.us/client/latest/zoom_amd64.deb -O zoom.deb
+sudo apt-get install -y libgl1-mesa-glx libegl1-mesa libxcb-xtest0
 sudo dpkg -i zoom.deb
+rm zoom.deb
 
 
 sudo chsh -s $(which zsh) $USER
