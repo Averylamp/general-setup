@@ -122,7 +122,7 @@ sudo npm install -g npm
 sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
 echo Install Spotify
-curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt-get update && sudo apt-get install spotify-client
 
@@ -148,6 +148,11 @@ git config --global user.name "Avery Lamp"
 git config --global core.editor "vim"
 
 yes "" | ssh-keygen -t rsa -b 4096 -N ""
+echo -e "SSH pubkey for id_rsa\n\n"
+cat ~/.ssh/id_rsa.pub
+echo -e "\n"
+
+yes "" | ssh-keygen -t rsa -b 4096 -f /home/avery/.ssh/github -N  ""
 echo -e "SSH pubkey for github\n\n"
 cat ~/.ssh/id_rsa.pub
 echo -e "\n"
@@ -170,4 +175,5 @@ git config --global user.signingkey $GPG_KEY_ID
 git config --global commit.gpgsign true
 
 echo Copying dotfiles
-cp dotfiles/.[^.]*  $HOME
+rsync -rv dotfiles/.  $HOME
+rsync -av .config/ $HOME/.config/
