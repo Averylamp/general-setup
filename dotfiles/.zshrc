@@ -1,55 +1,13 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
+
+ZSH_DISABLE_COMPFIX=true
 # Path to your oh-my-zsh installation.
 export ZSH="/home/avery/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
-
-DISABLE_UPDATE_PROMPT="true"
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="mm/dd/yyyy"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages docker docker-compose gcloud gitignore history lxd autojump)
+ZSH_THEME="robbyrussell"
+plugins=(zsh-autosuggestions colored-man-pages docker docker-compose gcloud git-flow-avh git gitignore history minikube terraform vagrant kubectl autojump)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -143,46 +101,143 @@ prompt_git() {
     echo -n "${PL_BRANCH_CHAR} ${branchname}${vcs_info_msg_0_%% }${mode}"
   fi
 }
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias e='emacs -nw'
-alias sl='ls'
 
 prompt_dir() {
   prompt_segment blue $CURRENT_FG '%2~'
 }
 
-############################################
-#
-#  Custom Stuff
-#
-############################################
+alias e="emacs -nw"
 
-export TERM=screen-256color
-export DISABLE_AUTO_TITLE="true"
-alias open="xdg-open"
-alias sus="xset dpms force off"
-alias mon="cd /home/avery/Developer/projects/monkey"
-alias monc="cd /home/avery/Developer/projects/monkey/monkey-core"
-alias moni="cd /home/avery/Developer/projects/monkey/monkey-cli"
+alias m="mctl"
+alias mo="cd ~/mosaic"
+alias mc="cd ~/mosaic/mctl"
+alias b="mctl"
+alias kdelinteractive="kubectl delete jobs -l type=interactive"
+alias kdeljobs="kubectl delete jobs --all"
+alias kdeljobsall="benchctl delete jobs -l type=interactive"
+alias kgj="kubectl get jobs"
+alias kdj="kubectl describe job"
+alias python="/usr/bin/python3"
+alias kgc="kubectl config get-contexts"
+alias kscc="kubectl config use-context colo-research-01"
+alias ksca="kubectl config use-context aws-research-01"
+alias kscaz="kubectl config use-context azure-research-01"
+alias kscg="kubectl config use-context gcp-research-01"
+alias mutil="mctl util -v"
+alias klf="kubectl logs -f "
+alias check_failed="kubectl get jobs | grep 0/1 | awk '{ print $1; }' | xargs -I {} kubectl describe job {} | grep -E  '1 Failed'"
+# Kube Autocomplete
+[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+
+run_on_all_contexts(){
+    echo "Running '$@' on all contexts"
+    current=$(kubectl config current-context)
+    kscc
+    eval $@
+    ksca
+    eval $@
+    kscaz
+    eval $@
+    kscg
+    eval $@
+    kcuc $current
+}
+
+kgaj(){
+    run_on_all_contexts kgj
+}
+
+
+kdevaws(){
+	instance=${1:-g4dn.2xlarge}
+    kcuc aws-research-01
+    existing=$(kgj -o name | grep "avery-aws-$instance-interactive" | head -n 1 )
+    if [ $? -eq 0 ]; then
+        echo -e "Existing interactive pod found\n"
+        kubectl exec -it $(echo $existing | head -n 1) -- zsh
+    else
+        echo -e "No existing interactive pod found\nCreating pod...\n"
+        echo -e "benchmark interactive --instance $instance --image mosaicml/avery --name avery-aws-$instance-interactive"
+        out=$(benchmark interactive --instance $instance --image mosaicml/avery --name avery-aws-$instance-interactive)
+        echo $out
+        out=$(echo $out | grep -A 2 "Pod launched" |  sed -n 2p | sed s/bash/zsh/)
+        echo $out
+        eval $out
+    fi
+
+}
+
+kdevaws8() {
+	kdevaws p3.16xlarge
+}
+
+kdevcolo(){
+	accelerator=$1
+	acc_type=$2
+	echo "Accelerator: $gpu"
+    kcuc colo-research-01
+
+	job_name="avery-interactive-$accelerator$acc_type"
+	if [ ! -n "$accelerator" ]
+	then
+		job_name="avery-interacitve-cpu"	
+	fi
+	echo "Job: $job_name"
+    existing=$(kgj -o name | grep "$job_name")
+    if [ $? -eq 0 ]; then
+        echo -e "Existing interactive pod found\n"
+        kubectl exec -it $(echo $existing | head -n 1) -- zsh
+    else
+        echo -e "No existing interactive pod found\nCreating pod...\n"
+        echo -e "Running: benchmark interactive --instance cota-$accelerator$acc_type --image mosaicml/avery --name $job_name"
+        out=$(benchmark interactive --instance cota-$accelerator$acc_type --image mosaicml/avery --name "$job_name")
+        echo $out
+        out=$(echo $out | grep -A 2 "Pod launched" |  sed -n 2p | sed s/bash/zsh/)
+        echo $out
+        eval $out
+    fi
+}
+
+kdevc(){
+	cpus=${1:-10}
+	kdevcolo "" "c$cpus"
+}
+kdev(){
+	gpu=${1:-3080}
+	gpu_num=${2:-1}
+	kdevcolo "g$gpu_num-" "$gpu"
+}
+
+aws_clean(){
+    kubectl get jobs | grep 1/1 | awk '{ print $1; }' > jobs;
+    kubectl get jobs | grep 1/1 | awk '{ print $1; }'  | xargs -I {} kubectl describe job {} | grep -A 3 ebs-pvc | grep -E 'ClaimName:' | awk '{print $2;}' > pvcs;
+    echo Deleting jobs;
+    cat jobs | parallel --bar kubectl delete job {};
+    echo Deleting pvcs;
+    cat pvcs | parallel --bar kubectl delete pvc {};
+    rm jobs pvcs
+}
+
+export PATH="/usr/local/sbin:$PATH"
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+xset r rate 600 35
+alias worksetup="/home/avery/.xprofile-work"
+alias werk="worksetup"
+alias work="worksetup"
+alias homesetup="/home/avery/.xprofile-home"
+alias mob="/home/avery/.xprofile-mobile"
+alias srcv="source venv/bin/activate"
+alias capsctrl="setxkbmap -layout us -option ctrl:nocaps"
+alias sl="ls"
+
+alias audioout="pacmd set-default-sink 'alsa_output.pci-0000_00_1f.3-platform-skl_hda_dsp_generic.HiFi__hw_sofhdadsp__sink'"
+alias audiodac="pacmd set-default-sink 'alsa_output.usb-OPPO_OPPO_HA-2_USB_AUDIO_2.0_DAC-00.analog-stereo'"
+alias connectbose="bluetoothctl connect 4C:87:5D:A3:AC:5B"
+alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
+alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
+alias pyr="pyright ."
+alias next="npx next"
+alias nd="npm run dev"
+alias nbs="npm run build && npm run start"
+alias vercel="npx vercel"

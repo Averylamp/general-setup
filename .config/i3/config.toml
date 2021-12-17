@@ -1,23 +1,15 @@
 theme = "solarized-dark"
 icons = "awesome"
 
+
 [[block]]
 block = "focused_window"
 max_width = 50
 show_marks = "visible"
 
 [[block]]
-block = "nvidia_gpu"
-label = "3080"
-show_memory = true
-show_clocks = true
-interval = 1
-
-
-[[block]]
 block= "net"
-#speed_min_unit = "M"
-
+format= "{signal_strength} {speed_down;M*B} {speed_up;M*B}"
 
 [[block]]
 block = "music"
@@ -34,9 +26,10 @@ format = "{running}/{total}"
 block = "memory"
 display_type = "memory"
 clickable = false
-format_mem = "{mem_used_percents}%|{mem_free}GB F"
-format_swap = "{SUp}%"
+format_mem = "{mem_used_percents} {mem_used} /{mem_total}"
 interval = 10
+warning_mem = 75
+critical_mem = 90
 
 [[block]]
 block = "temperature"
@@ -45,7 +38,7 @@ collapsed = false
 [[block]]
 block = "cpu"
 interval = 1
-format = "{barchart} {utilization}% {frequency}GHz"
+format = "{barchart} {utilization} {frequency}"
 
 [[block]]
 block = "load"
@@ -54,6 +47,20 @@ format = "{1m} {5m}"
 
 [[block]]
 block = "sound"
+
+[[block]]
+block = "bluetooth"
+mac = "4C:87:5D:A3:AC:5B"
+format = "Bose"
+format_unavailable = "Bose"
+
+[[block]]
+block = "backlight"
+
+[[block]]
+block = "battery"
+interval = 10
+format = "{percentage} {time}"
 
 [[block]]
 block = "time"
