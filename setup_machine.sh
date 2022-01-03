@@ -21,7 +21,7 @@ sudo apt-get install python3.8-venv python3.8
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python3.8 get-pip.py
 rm get-pip.py
-pip install yapf importmagic isort epc
+pip install yapf importmagic isort epc toml
 
 echo Install i3
 sudo apt-get -y install rofi i3 autojump
@@ -58,6 +58,12 @@ sudo add-apt-repository -r "deb [arch=amd64] https://packages.microsoft.com/repo
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt-get install code
 
+echo Install Emacs
+wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-27.1.tar.xz | tar -xJ
+sudo apt-get install -y gnutls-bin libc6-dev pkg-config libgnutls28-dev libncurses5-dev libpng-dev libtiff5-dev libgif-dev xaw3dg-dev zlib1g-dev libice-dev libsm-dev libx11-dev libxext-dev libxi-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxt-dev  libxtst-dev libxv-dev
+cd emacs-27.1 && ./configure && make -j && sudo make install && cd ../ && rm -rf emacs-27-1
+
+
 echo Install spacemacs
 sudo apt-get -y install emacs
 git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
@@ -77,6 +83,11 @@ sudo add-apt-repository \
 sudo apt-get update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
+
+echo Install Docker Composer
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
 
 echo Installs Kubectl
 sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
@@ -117,10 +128,6 @@ sudo apt-get -y update && sudo apt-get -y install nodejs
 sudo npm install -g npm
 sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
-sudo apt-get -y update && apt-get -y install nodejs npm
-sudo npm install -g npm
-sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
-
 echo Install Spotify
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -137,6 +144,26 @@ wget https://zoom.us/client/latest/zoom_amd64.deb -O zoom.deb
 sudo apt-get install -y libgl1-mesa-glx libegl1-mesa libxcb-xtest0
 sudo dpkg -i zoom.deb
 rm zoom.deb
+
+echo Install Postman
+wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
+tar xvf postman.tar.gz
+sudo mv Postman /usr/local/lib/
+cat > /usr/local/share/applications/postman.desktop <<EOL
+[Desktop Entry]
+Name=Postman
+GenericName=Web Requests
+Comment=Send Web Requests
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+Exec=Postman
+Icon=Postman
+Type=Application
+Terminal=false
+Categories=Development;
+Keywords=Text;Editor;Web
+EOL
+
+
 
 
 sudo chsh -s $(which zsh) $USER
