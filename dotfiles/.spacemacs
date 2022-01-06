@@ -62,6 +62,10 @@ This function should only modify configuration layer settings."
            node-add-modules-path t
            )
      vue
+     (lsp :variables
+          lsp-ui-doc-enable t
+          lsp-ui-doc-show-with-cursor t
+          )
      (javascript :variables
                  javascript-backend 'tide
                  javascript-lsp-linter nil
