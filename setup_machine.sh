@@ -61,7 +61,12 @@ sudo apt-get install code
 echo Install Emacs
 wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-27.1.tar.xz | tar -xJ
 sudo apt-get install -y gnutls-bin libc6-dev pkg-config libgnutls28-dev libncurses5-dev libpng-dev libtiff5-dev libgif-dev xaw3dg-dev zlib1g-dev libice-dev libsm-dev libx11-dev libxext-dev libxi-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxt-dev  libxtst-dev libxv-dev elpa-yasnippet-snippets
-cd emacs-27.1 && ./configure && make -j && sudo make install && cd ../ && rm -rf emacs-27-1
+cd emacs-27.1
+./configure
+make -j
+sudo make install
+cd ../
+rm -rf emacs-27.1
 
 
 echo Install spacemacs
@@ -131,7 +136,7 @@ sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash
 echo Install Spotify
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update && sudo apt-get install spotify-client
+sudo apt-get -y update && sudo apt-get -y install spotify-client
 
 echo Install Slack
 wget https://downloads.slack-edge.com/releases/linux/4.17.0/prod/x64/slack-desktop-4.17.0-amd64.deb -O slack.deb
@@ -149,7 +154,9 @@ echo Install Postman
 wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
 tar xvf postman.tar.gz
 sudo mv Postman /usr/local/lib/
-cat > /usr/local/share/applications/postman.desktop <<EOL
+sudo rm Postman
+sudo rm postman.tar.gz
+sudo cat > /usr/local/share/applications/postman.desktop <<EOL
 [Desktop Entry]
 Name=Postman
 GenericName=Web Requests
@@ -181,7 +188,7 @@ echo -e "\n"
 
 yes "" | ssh-keygen -t rsa -b 4096 -f /home/avery/.ssh/github -N  ""
 echo -e "SSH pubkey for github\n\n"
-cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/github.pub
 echo -e "\n"
 
 echo -e "GPG key generation\n"
