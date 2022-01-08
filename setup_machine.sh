@@ -154,7 +154,7 @@ echo Install Postman
 wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
 tar xvf postman.tar.gz
 sudo mv Postman /usr/local/lib/
-sudo rm Postman
+sudo rm -rf Postman
 sudo rm postman.tar.gz
 sudo cat > /usr/local/share/applications/postman.desktop <<EOL
 [Desktop Entry]
@@ -170,8 +170,18 @@ Categories=Development;
 Keywords=Text;Editor;Web
 EOL
 
+echo Add Github to ssh config
 
-
+touch ~/.ssh/config
+grep -Fxq "Host github.com" ~/.ssh/config ||  {
+cat >> /home/avery/.ssh/config <<EOL
+Host github.com
+    User git
+    Hostname github.com
+    PreferredAuthentications publickey
+    IdentityFile /home/avery/.ssh/github
+EOL
+}
 
 sudo chsh -s $(which zsh) $USER
 
