@@ -70,8 +70,9 @@ rm -rf emacs-27.1
 
 
 echo Install spacemacs
-sudo apt-get -y install emacs
 git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
+emacs -nw -batch -u "${UNAME}" -q -kill
+echo fs.inotify.max_user_watches=524289 | sudo tee -a /etc/sysctl.conf
 
 echo Install Docker
 sudo apt-get remove docker docker-engine docker.io containerd runc
