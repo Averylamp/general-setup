@@ -242,6 +242,14 @@ alias nd="npm run dev"
 alias nbs="npm run build && npm run start"
 alias vercel="npx vercel"
 
+
+PROMPT="%F{red}%n%f"
+PROMPT+="@"
+PROMPT+="%F{blue}${${(%):-%m}#zoltan-}%f"
+PROMPT+=" "
+PROMPT+="%F{yellow}%1~ %f"
+PROMPT+="$ "
+
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
