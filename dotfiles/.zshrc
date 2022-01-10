@@ -241,3 +241,5 @@ alias next="npx next"
 alias nd="npm run dev"
 alias nbs="npm run build && npm run start"
 alias vercel="npx vercel"
+
+export TERM="linux"
