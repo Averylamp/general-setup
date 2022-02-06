@@ -172,16 +172,12 @@ Categories=Development;
 Keywords=Text;Editor;Web
 EOL
 
-<<<<<<< HEAD
 echo Install MongoDB Compass
 wget https://downloads.mongodb.com/compass/mongodb-compass_1.29.6_amd64.deb -O mongodb_compass.deb
 sudo dpkg -i mongodb_compass.deb
 rm mongodb_compass.deb
 
-=======
 echo Add Github to ssh config
->>>>>>> c7e146509080e583bd5b204787d465337c436c8a
-
 touch ~/.ssh/config
 grep -Fxq "Host github.com" ~/.ssh/config ||  {
 cat >> /home/avery/.ssh/config <<EOL
