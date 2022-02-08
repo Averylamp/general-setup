@@ -72,6 +72,7 @@ rm -rf emacs-27.1
 
 echo Install spacemacs
 git clone -b develop https://github.com/syl20bnr/spacemacs ~/.emacs.d
+rsync -av dotfiles/.  $HOME
 emacs -nw -batch -u "${UNAME}" -q -kill
 echo fs.inotify.max_user_watches=524289 | sudo tee -a /etc/sysctl.conf
 
@@ -225,5 +226,5 @@ git config --global user.signingkey $GPG_KEY_ID
 git config --global commit.gpgsign true
 
 echo Copying dotfiles
-rsync -rv dotfiles/.  $HOME
+rsync -av dotfiles/.  $HOME
 rsync -av .config/ $HOME/.config/
