@@ -41,6 +41,10 @@ This function should only modify configuration layer settings."
                       )
      better-defaults
      colors
+     (go :variables
+         go-backend 'lisp
+         go-format-before-save t
+         )
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
             c-c++=enable-clang-support t
@@ -91,9 +95,9 @@ This function should only modify configuration layer settings."
      org
      (python :variables
              python-enable-yapf-format-on-save t
+             python-sort-imports-on-save t
              python-format-on-save t
              python-formatter 'yapf
-             python-sort-imports-on-save t
              python-backend 'lsp
              python-lsp-server 'pyright
              )
@@ -176,14 +180,14 @@ It should only modify the values of Spacemacs settings."
    ;; performance issues due to garbage collection operations.
    ;; (default '(100000000 0.1))
    dotspacemacs-gc-cons
-   '(100000000 0.1)
+   '(10000000000 0.3)
    ;; Set `read-process-output-max' when startup finishes.
    ;; This defines how much data is read from a foreign process.
    ;; Setting this >= 1 MB should increase performance for lsp servers
    ;; in emacs 27.
    ;; (default (* 1024 1024))
    dotspacemacs-read-process-output-max
-   (* 4096 1024)
+   (* 1024 1024 16)
    ;; If non-nil then Spacelpa repository is the primary source to install
    ;; a locked version of packages. If nil then Spacemacs will install the
    ;; latest version of packages from MELPA. Spacelpa is currently in
@@ -572,12 +576,21 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;; LSP Delay
+  (setq lsp-idle-delay 0.4)
+
   ;; Prettier for Typescript
-  (add-hook 'before-save-hook 'prettier-js)
+  (defun my-typescript-mode-before-save-hook ()
+    (when (eq major-mode 'typescript-mode)
+      (prettier-js)))
+  (add-hook 'before-save-hook #'my-typescript-mode-before-save-hook)
 
   ;; Isort for Python
-  (add-hook 'before-save-hook 'lsp-format-buffer)
-  (add-hook 'before-save-hook 'py-isort-buffer)
+  (defun my-python-mode-before-save-hook ()
+    (when (eq major-mode 'python-mode)
+      (py-isort-before-save)))
+  (add-hook 'before-save-hook #'my-python-mode-before-save-hook)
+
   (evil-leader/set-key "i d" 'python-insert-docstring-with-google-style-at-point)
 
   ;; Text size
