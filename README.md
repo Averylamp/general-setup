@@ -6,8 +6,14 @@ I have a couple of main choices in my setup that I really like to use.
 
 ### i3
 
+### i3-status-rust
+
+### dunst
+
+### Alacritty/kitty
+
+
 
 ### Spacemacs
-
 
 ### Config Dotfiles
