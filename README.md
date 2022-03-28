@@ -37,6 +37,7 @@ I found that GPU accelerated shells have much smoother scrolling versus cpu enab
 ## Tools
 
 ### AG (silver searcher)
+AG is just a better seasrching tool for codebases.  
 
 ### RG (rip grep)
 
