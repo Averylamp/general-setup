@@ -130,4 +130,6 @@ PROMPT+="$ "
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
+# setxkbmap -option altwin:swap_alt_win
+alias performance='echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 
