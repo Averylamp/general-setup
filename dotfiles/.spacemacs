@@ -54,7 +54,6 @@ This function should only modify configuration layer settings."
      emacs-lisp
      evil-snipe
      git
-     github
      (helm :variables
            helm-make-nproc 0
            )

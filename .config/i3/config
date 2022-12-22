@@ -17,7 +17,7 @@ set $mod Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:"Source Sans Pro" 16
+font pango:"Source Sans Pro" 8
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -253,7 +253,7 @@ workspace_auto_back_and_forth yes
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    font pango:monospace 16
+    font pango:monospace 10
     status_command /home/avery/.cargo/bin/i3status-rs /home/avery/.config/i3/config.toml
     colors {
         separator #666666
@@ -284,6 +284,9 @@ bindsym Print exec playerctl previous
 bindsym F11 exec playerctl play-pause
 bindsym F12 exec playerctl next
 bindsym F10 exec playerctl previous
+bindcode 172 exec playerctl play-pause
+bindcode 171 exec playerctl next
+bindcode 173 exec playerctl previous
 
 
 # The middle button over a titlebar kills the window
