@@ -4,15 +4,13 @@ icons = "awesome5"
 [theme]
 theme = "solarized-dark"
 
-
 [[block]]
 block = "focused_window"
 format = " $title.str(0,50) |"
 
-
 [[block]]
 block= "net"
-format= " $icon ^icon_net_down $speed_down.eng(3,B,M) ^icon_net_up $speed_up.eng(3,B,M) "
+format= " ^icon_net_down $speed_down.eng(3,B,M) ^icon_net_up $speed_up.eng(3,B,M) "
 
 [[block]]
 block = "music"
@@ -41,8 +39,12 @@ interval = 10
 [[block]]
 block = "cpu"
 interval = 1
-format = " $icon $barchart $utilization "
+format = " $icon $barchart $utilization $frequency "
 format_alt = " $icon $frequency{ $boost|} "
+
+[[block]]
+block = "nvidia_gpu"
+interval = 1
 
 [[block]]
 block = "load"
