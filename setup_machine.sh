@@ -8,7 +8,7 @@ sudo apt-get update
 sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
 	   build-essential ca-certificates curl gnupg-agent software-properties-common fonts-font-awesome \
      cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev playerctl xclip xscreensaver mplayer scrot tree net-tools libtool \
-     vim gnome-tweaks htop
+     vim gnome-tweaks htop silversearcher-ag
 
 echo Installing app packages
 sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server libxcb-xfixes0-dev
