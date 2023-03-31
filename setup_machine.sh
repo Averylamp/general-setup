@@ -7,21 +7,8 @@ echo Installing general apt packages
 sudo apt-get update
 sudo apt-get -y install landscape-common figlet fonts-powerline apt-transport-https \
 	   build-essential ca-certificates curl gnupg-agent software-properties-common fonts-font-awesome \
-     cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev playerctl xclip xscreensaver mplayer scrot tree net-tools libtool libvterm
-
-
-echo Installing Cuda
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-sudo apt-get update
-sudo apt-get -y install cuda
-
-
-#echo Install xscreensaver
-#wget https://raw.githubusercontent.com/graysky2/xscreensaver-aerial/master/atv4-4k.sh
-
+       cmake libfontconfig libfontconfig1-dev libxkbcommon-dev libsdl-pango-dev playerctl xclip xscreensaver mplayer scrot tree net-tools libtool \
+       vim gnome-tweaks htop silversearcher-ag libvterm
 
 echo Installing app packages
 sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server libxcb-xfixes0-dev
@@ -70,14 +57,14 @@ sudo apt-get install code
 
 echo Install Emacs
 sudo apt-get install -y imagemagick libjansson4 libjansson-dev
-wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-27.1.tar.xz | tar -xJ
+wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-28.1.tar.xz | tar -xJ
 sudo apt-get install -y gnutls-bin libc6-dev pkg-config libgnutls28-dev libncurses5-dev libpng-dev libtiff5-dev libgif-dev xaw3dg-dev zlib1g-dev libice-dev libsm-dev libx11-dev libxext-dev libxi-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxt-dev  libxtst-dev libxv-dev elpa-yasnippet-snippets
-cd emacs-27.1
+cd emacs-28.1
 ./configure --wtih-json
 make -j
 sudo make install
 cd ../
-rm -rf emacs-27.1
+rm -rf emacs-28.1
 
 
 echo Install spacemacs
@@ -127,7 +114,7 @@ echo "finished installing"
 echo Install Rust
 echo Installing Rust Dependencies
 sudo apt-get update
-sudo apt-get -y install libdbus-1-dev pkg-config libssl-dev
+sudo apt-get -y install libdbus-1-dev pkg-config libssl-dev libsensors-dev
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 echo Install i3-status-rust
 sudo apt-get install -y libsnmp-dev

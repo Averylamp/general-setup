@@ -30,7 +30,10 @@ font pango:"Source Sans Pro" 8
 # xscreensaver lock
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id xss-lock -- xscreensaver-command -l
+
+# Lock Screen
 bindsym $mod+F11 exec --no-startup-id xscreensaver-command -l
+bindsym Shift+Ctrl+Q exec xscreensaver-command -lock
 
 # background
 exec --no-startup-id xsetroot -solid "#444444"

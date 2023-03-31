@@ -1,66 +1,65 @@
-theme = "solarized-dark"
+[icons]
 icons = "awesome5"
 
+[theme]
+theme = "solarized-dark"
 
 [[block]]
 block = "focused_window"
-max_width = 50
-show_marks = "visible"
+format = " $title.str(0,50) |"
 
 [[block]]
 block= "net"
-format= "{signal_strength} {speed_down;M*B} {speed_up;M*B}"
+format= " ^icon_net_down $speed_down.eng(3,B,M) ^icon_net_up $speed_up.eng(3,B,M) "
 
 [[block]]
 block = "music"
 player = "spotify"
-max_width = 20
-buttons = ["play", "next"]
+format = " $icon {$combo.str(0,20) $play $next |}"
 
 [[block]]
 block = "docker"
-interval = 2
-format = "{running}/{total}"
+interval = 20
+format = " $icon $running/$total "
 
 [[block]]
 block = "memory"
-display_type = "memory"
-clickable = false
-format_mem = "{mem_used_percents} {mem_used} /{mem_total}"
-interval = 10
-warning_mem = 75
+format = " $icon $mem_avail.eng(3,B)/$mem_total.eng(3,B)($mem_total_used_percents.eng(2)) "
+
+interval = 30
+warning_mem = 70
 critical_mem = 90
 
 [[block]]
 block = "temperature"
-collapsed = false
+format = " $icon $max max "
+format_alt = " $icon $min min, $max max, $average avg "
+interval = 10
 
 [[block]]
 block = "cpu"
 interval = 1
-format = "{barchart} {utilization} {frequency}"
+format = " $icon $barchart $utilization $frequency "
+format_alt = " $icon $frequency{ $boost|} "
+
+[[block]]
+block = "nvidia_gpu"
+interval = 1
 
 [[block]]
 block = "load"
 interval = 1
-format = "{1m} {5m}"
+format = " $icon $1m $5m "
 
 [[block]]
 block = "sound"
+format = " $icon $volume "
 
 [[block]]
 block = "bluetooth"
 mac = "4C:87:5D:A3:AC:5B"
-format = "Bose"
-format_unavailable = "Bose"
+format = " $icon "
 
-[[block]]
-block = "backlight"
-
-[[block]]
-block = "battery"
-interval = 10
-format = "{percentage} {time}"
 
 [[block]]
 block = "time"
