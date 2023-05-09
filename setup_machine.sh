@@ -152,7 +152,7 @@ Host github.com
     User git
     Hostname github.com
     PreferredAuthentications publickey
-    IdentityFile /home/avery/.ssh/github
+    IdentityFile /home/avery/.ssh/id_ed25519
 EOL
 }
 
@@ -164,15 +164,6 @@ git config --global user.email "averylamp@gmail.com"
 git config --global user.name "Avery Lamp"
 git config --global core.editor "vim"
 
-yes "" | ssh-keygen -t rsa -b 4096 -N ""
-echo -e "SSH pubkey for id_rsa\n\n"
-cat ~/.ssh/id_rsa.pub
-echo -e "\n"
-
-yes "" | ssh-keygen -t rsa -b 4096 -f /home/avery/.ssh/github -N  ""
-echo -e "SSH pubkey for github\n\n"
-cat ~/.ssh/github.pub
-echo -e "\n"
 
 echo -e "GPG key generation\n"
 
