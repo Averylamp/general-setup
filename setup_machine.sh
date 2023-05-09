@@ -83,16 +83,16 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 
 echo Install Docker Composer
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# sudo chmod +x /usr/local/bin/docker-compose
 
 
 echo Installs Kubectl
-sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt-get update
-sudo apt-get install -y kubectl
+# sudo apt-get update && sudo apt-get install -y apt-transport-https gnupg2
+# curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+# echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+# sudo apt-get update
+# sudo apt-get install -y kubectl
 
 echo Copies .configs over to configs
 rsync -rv --progress .config $HOME/.config
@@ -133,10 +133,10 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 sudo apt-get -y update && sudo apt-get -y install spotify-client
 
 echo Install Slack
-wget https://downloads.slack-edge.com/releases/linux/4.17.0/prod/x64/slack-desktop-4.17.0-amd64.deb -O slack.deb
-sudo dpkg -i slack.deb
-sudo apt-get update && sudo apt-get install slack-desktop
-rm slack.deb
+# wget https://downloads.slack-edge.com/releases/linux/4.17.0/prod/x64/slack-desktop-4.17.0-amd64.deb -O slack.deb
+# sudo dpkg -i slack.deb
+# sudo apt-get update && sudo apt-get install slack-desktop
+# rm slack.deb
 
 echo Install Zoom
 wget https://zoom.us/client/latest/zoom_amd64.deb -O zoom.deb
