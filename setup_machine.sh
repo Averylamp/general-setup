@@ -14,10 +14,7 @@ echo Installing app packages
 sudo apt-get -y install parallel vim git gnupg2 tmux openssh-server libxcb-xfixes0-dev
 
 echo Install Python
-sudo apt-get install python3.8-venv python3.8
-wget https://bootstrap.pypa.io/get-pip.py
-sudo python3.8 get-pip.py
-rm get-pip.py
+sudo apt-get install python3 python3-pip
 pip install yapf importmagic isort epc toml
 
 echo Install i3
@@ -30,11 +27,7 @@ sudo cp $HOME/.local/kitty.app/share/applications/kitty.dekstop /usr/share/appli
 
 
 echo Installing tools
-sudo apt-get -y install htop nload iperf vnstat lm-sensors hddtemp gnome-tweaks silversearcher-ag ripgrep
-
-echo Installs subl
-sudo wget -O /usr/local/bin/subl https://raw.githubusercontent.com/aurora/rmate/master/rmate
-sudo chmod a+x /usr/local/bin/subl
+sudo apt-get -y install htop nload iperf vnstat lm-sensors gnome-tweaks silversearcher-ag ripgrep
 
 echo Setup Zsh
 sudo apt-get -y install zsh curl wget
@@ -109,10 +102,9 @@ mkdir -p ~/.fonts/adobe-fonts/source-code-pro
 git clone https://github.com/adobe-fonts/source-code-pro.git ~/.fonts/adobe-fonts/source-code-pro
 find ~/.fonts/ -iname '*.ttf' -exec echo \{\} \;
 fc-cache -f -v ~/.fonts/adobe-fonts/source-code-pro
-echo "finished installing"
+echo "Finished installing fonts"
 
 echo Install Rust
-echo Installing Rust Dependencies
 sudo apt-get update
 sudo apt-get -y install libdbus-1-dev pkg-config libssl-dev libsensors-dev
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -130,7 +122,8 @@ sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line
 
 echo Install Node
 curl -fsSL https://deb.nodesource.com/setup_16.x |  sudo bash
-sudo apt-get -y update && sudo apt-get -y install nodejs
+sudo apt-get -y update
+sudo apt-get -y install nodejs
 sudo npm install -g npm
 sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
 
@@ -150,31 +143,6 @@ wget https://zoom.us/client/latest/zoom_amd64.deb -O zoom.deb
 sudo apt-get install -y libgl1-mesa-glx libegl1-mesa libxcb-xtest0
 sudo dpkg -i zoom.deb
 rm zoom.deb
-
-echo Install Postman
-wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz
-tar xvf postman.tar.gz
-sudo mv Postman /usr/local/lib/
-sudo rm -rf Postman
-sudo rm postman.tar.gz
-sudo cat > /usr/local/share/applications/postman.desktop <<EOL
-[Desktop Entry]
-Name=Postman
-GenericName=Web Requests
-Comment=Send Web Requests
-MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
-Exec=Postman
-Icon=Postman
-Type=Application
-Terminal=false
-Categories=Development;
-Keywords=Text;Editor;Web
-EOL
-
-echo Install MongoDB Compass
-wget https://downloads.mongodb.com/compass/mongodb-compass_1.29.6_amd64.deb -O mongodb_compass.deb
-sudo dpkg -i mongodb_compass.deb
-rm mongodb_compass.deb
 
 echo Add Github to ssh config
 touch ~/.ssh/config
