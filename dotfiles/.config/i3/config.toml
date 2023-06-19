@@ -61,6 +61,11 @@ block = "bluetooth"
 mac = "4C:87:5D:A3:AC:5B"
 format = " $icon "
 
+[[block]]
+block = "battery"
+format = " $icon $percentage { $time |}  "
+full_format = " $icon $percentage { $time |} "
+
 
 [[block]]
 block = "time"
