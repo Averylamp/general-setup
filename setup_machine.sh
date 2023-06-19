@@ -50,14 +50,14 @@ sudo apt-get install code
 
 echo Install Emacs
 sudo apt-get install -y imagemagick libjansson4 libjansson-dev
-wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-28.1.tar.xz | tar -xJ
+wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-28.2.tar.xz | tar -xJ
 sudo apt-get install -y gnutls-bin libc6-dev pkg-config libgnutls28-dev libncurses5-dev libpng-dev libtiff5-dev libgif-dev xaw3dg-dev zlib1g-dev libice-dev libsm-dev libx11-dev libxext-dev libxi-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxt-dev  libxtst-dev libxv-dev elpa-yasnippet-snippets
-cd emacs-28.1
+cd emacs-28.2
 ./configure --wtih-json
 make -j
 sudo make install
 cd ../
-rm -rf emacs-28.1
+rm -rf emacs-28.2
 
 
 echo Install spacemacs
