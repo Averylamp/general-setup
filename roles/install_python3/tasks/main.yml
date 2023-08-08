@@ -1,0 +1,19 @@
+---
+- name: Install Python
+  become: true
+  apt:
+    name:
+      - python3
+      - python3-pip
+    state: present
+- name: Install Common Python LSPs
+  pip:
+    name:
+      - black
+      - mypy
+      - importmagic
+      - isort
+      - epc
+      - toml
+      - ansible
+    state: present

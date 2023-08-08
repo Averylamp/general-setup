@@ -1,0 +1,24 @@
+---
+- name: Download kitty installer
+  get_url:
+    url: https://sw.kovidgoyal.net/kitty/installer.sh
+    dest: /tmp/installer.sh
+    mode: '0755'
+
+- name: Execute kitty installer
+  shell: sh /tmp/installer.sh
+  args:
+    executable: /bin/bash
+
+# - name: Create symbolic link to kitty
+#   become: true
+#   file:
+#     src: "{{ ansible_env.HOME }}/.local/kitty.app/bin/kitty"
+#     dest: /usr/bin/kitty
+#     state: link
+
+# - name: Copy desktop file
+#   copy:
+#     src: "{{ ansible_env.HOME }}/.local/kitty.app/share/applications/kitty.dekstop"
+#     dest: /usr/share/applications/kitty.dekstop
+#     remote_src: yes

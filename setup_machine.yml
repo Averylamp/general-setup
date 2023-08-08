@@ -1,0 +1,21 @@
+---
+- name: Setup a new machine
+  hosts: avery-seacow
+  remote_user: avery
+
+  tasks:
+  # - name: Install Dependencies
+  #   include_role:
+  #     name: install_apt
+
+  # - name: Install Python3
+  #   include_role:
+  #     name: install_python3
+
+  # - name: Install Kitty
+  #   include_role:
+  #     name: install_kitty
+
+  - name: Install OMZSH
+    include_role:
+      name: install_zsh

@@ -1,0 +1,83 @@
+---
+
+- name: Apt Update
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Apt Full Upgrade
+  become: true
+  apt:
+    update_cache: no
+    upgrade: full
+
+- name: Apt Dist Upgrade
+  become: true
+  apt:
+    update_cache: no
+    upgrade: dist
+
+
+- name: Install Base Software Packages
+  become: true
+  apt:
+    name:
+      - landscape-common
+      - apt-transport-https
+      - build-essential
+      - gnupg-agent
+      - software-properties-common
+      - libfontconfig
+      - libfontconfig1-dev
+      - libxkbcommon-dev
+      - libsdl-pango-dev
+      - libtool
+      - gnupg2
+      - openssh-server
+      - libxcb-xfixes0-dev
+      - sshpass
+      - ca-certificates
+    state: present
+
+- name: Install User Software
+  become: true
+  apt:
+    name:
+      # Client Tools
+      - gnome-tweaks
+      - xclip
+      - xscreensaver
+      - scrot
+      - fonts-powerline
+      - fonts-font-awesome
+      - git
+      - playerctl
+      - mplayer
+
+      # Shell Tools
+      - zsh
+      - vim
+      - autojump
+      - parallel
+      - tree
+      - htop
+      - figlet
+      - tmux
+      - curl
+      - wget
+      - cmake
+
+      # i3
+      - rofi
+      - i3
+
+      # perf tools
+      - nload
+      - iperf
+      - net-tools
+      - vnstat
+      - lm-sensors
+
+      # search tools
+      - ripgrep
+      - silversearcher-ag
