@@ -16,6 +16,18 @@
   #   include_role:
   #     name: install_kitty
 
-  - name: Install OMZSH
+  # - name: Install ZSH
+  #   include_role:
+  #     name: install_zsh
+
+  # - name: Install Tmux
+  #   include_role:
+  #     name: install_tmux
+
+  # - name: Install Emacs
+  #   include_role:
+  #     name: install_emacs
+
+  - name: Install Docker
     include_role:
-      name: install_zsh
+      name: install_docker
