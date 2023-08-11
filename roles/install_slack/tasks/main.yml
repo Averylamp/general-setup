@@ -1,0 +1,28 @@
+---
+- name: Install Slack Dependencies
+  become: true
+  apt:
+    name:
+      - libappindicator3-1
+    state: present
+
+- name: Install Slack
+  become: true
+  shell: |
+    wget https://downloads.slack-edge.com/releases/linux/4.33.84/prod/x64/slack-desktop-4.33.84-amd64.deb -O slack.deb
+    sudo dpkg -i slack.deb
+    rm slack.deb
+  args:
+    executable: /bin/bash
+
+- name: Apt Update
+  become: true
+  apt:
+    update_cache: yes
+
+- name: Install Slack
+  become: true
+  apt:
+    name:
+      - slack-desktop
+    state: present

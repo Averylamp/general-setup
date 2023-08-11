@@ -4,30 +4,70 @@
   remote_user: avery
 
   tasks:
-  # - name: Install Dependencies
-  #   include_role:
-  #     name: install_apt
+  - name: Install Dependencies
+    include_role:
+      name: install_apt
 
-  # - name: Install Python3
-  #   include_role:
-  #     name: install_python3
+  - name: Install Python3
+    include_role:
+      name: install_python3
 
-  # - name: Install Kitty
-  #   include_role:
-  #     name: install_kitty
+  - name: Install Kitty
+    include_role:
+      name: install_kitty
 
-  # - name: Install ZSH
-  #   include_role:
-  #     name: install_zsh
+  - name: Install ZSH
+    include_role:
+      name: install_zsh
 
-  # - name: Install Tmux
-  #   include_role:
-  #     name: install_tmux
+  - name: Install Tmux
+    include_role:
+      name: install_tmux
 
-  # - name: Install Emacs
-  #   include_role:
-  #     name: install_emacs
+  - name: Install Emacs
+    include_role:
+      name: install_emacs
 
   - name: Install Docker
     include_role:
       name: install_docker
+
+  - name: Install KubeADM
+    include_role:
+      name: install_kubeadm
+
+  - name: Install MOTD
+    include_role:
+      name: install_motd
+
+  - name: Install Fonts
+    include_role:
+      name: install_fonts
+
+  - name: Install Rust
+    include_role:
+      name: install_rust
+
+  - name: Install Node
+    include_role:
+      name: install_node
+
+  - name: Install Git
+    include_role:
+      name: install_git
+
+  - name: Install Spotify
+    include_role:
+      name: install_spotify
+
+  - name: Install Slack
+    include_role:
+      name: install_slack
+
+  - name: Install Zoom
+    include_role:
+      name: install_zoom
+
+  - name: Install Config
+    include_role:
+      name: install_config

@@ -1,0 +1,63 @@
+---
+- name: Add Github to SSH Conf
+  become: true
+  shell: |
+    touch ~/.ssh/config
+    grep -Fxq "Host github.com" ~/.ssh/config ||  {
+    cat >> /home/avery/.ssh/config <<EOL
+    Host github.com
+        User git
+        Hostname github.com
+        PreferredAuthentications publickey
+        IdentityFile /home/avery/.ssh/id_ed25519
+    EOL
+    }
+
+  args:
+    executable: /bin/bash
+
+- name: Configure Git
+  become: true
+  shell: |
+    git config --global user.email "averylamp@gmail.com"
+    git config --global user.name "Avery Lamp"
+    git config --global core.editor "vim"
+  args:
+    executable: /bin/bash
+
+- name: Copy GPG Script
+
+  copy:
+    src: files/gen-key-script
+    dest: "/tmp/gen-key-script"
+
+- name: Create GPG Key if Needed
+  become: true
+  shell: |
+    if ! gpg --list-keys "Avery Lamp" ; then
+        echo -e "Creating gpg key\n"
+
+        gpg --batch --gen-key gen-key-script
+
+        echo -e "Printing gpg pubkey\n\n"
+        gpg --armor --export "Avery Lamp"
+        echo -e "\n"
+
+    fi
+
+    GPG_KEY_ID=$(gpg --list-secret-keys --keyid-format LONG "Avery Lamp" | grep sec | awk '{ print $2 }' | awk '{split($0, a, "/"); print a[2]}')
+    git config --global user.signingkey $GPG_KEY_ID
+    git config --global commit.gpgsign true
+  args:
+    executable: /bin/bash
+    chdir: /tmp
+
+- name: Get GPG Key
+  shell: |
+    gpg --armor --export "Avery Lamp"
+  args:
+    executable: /bin/bash
+  register: gpgkey
+
+- name: Printout GPG Key
+  debug: msg="{{gpgkey.stdout}}"

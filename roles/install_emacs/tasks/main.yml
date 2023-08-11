@@ -1,77 +1,77 @@
 ---
 
-# - name: Install required packages
-#   become: true
-#   apt:
-#     name:
-#       - imagemagick
-#       - libjansson4
-#       - libjansson-dev
-#       - gnutls-bin
-#       - libc6-dev
-#       - pkg-config
-#       - libgnutls28-dev
-#       - libncurses5-dev
-#       - libpng-dev
-#       - libtiff5-dev
-#       - libgif-dev
-#       - xaw3dg-dev
-#       - zlib1g-dev
-#       - libice-dev
-#       - libsm-dev
-#       - libx11-dev
-#       - libxext-dev
-#       - libxi-dev
-#       - libxmu-dev
-#       - libxmuu-dev
-#       - libxpm-dev
-#       - libxrandr-dev
-#       - libxt-dev
-#       - libxtst-dev
-#       - libxv-dev
-#       - elpa-yasnippet-snippets
+- name: Install required packages
+  become: true
+  apt:
+    name:
+      - imagemagick
+      - libjansson4
+      - libjansson-dev
+      - gnutls-bin
+      - libc6-dev
+      - pkg-config
+      - libgnutls28-dev
+      - libncurses5-dev
+      - libpng-dev
+      - libtiff5-dev
+      - libgif-dev
+      - xaw3dg-dev
+      - zlib1g-dev
+      - libice-dev
+      - libsm-dev
+      - libx11-dev
+      - libxext-dev
+      - libxi-dev
+      - libxmu-dev
+      - libxmuu-dev
+      - libxpm-dev
+      - libxrandr-dev
+      - libxt-dev
+      - libxtst-dev
+      - libxv-dev
+      - elpa-yasnippet-snippets
 
-# - name: Download and extract Emacs source
-#   shell: |
-#     wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-28.2.tar.xz | tar -xJ
-#   args:
-#     chdir: /tmp
+- name: Download and extract Emacs source
+  shell: |
+    wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-28.2.tar.xz | tar -xJ
+  args:
+    chdir: /tmp
 
-# - name: Clean Emacs
-#   become: true
-#   shell: |
-#     sudo make clean
-#   args:
-#     chdir: /tmp/emacs-28.2
-#     executable: /bin/bash
+- name: Clean Emacs
+  become: true
+  shell: |
+    sudo make clean
+  args:
+    chdir: /tmp/emacs-28.2
+    executable: /bin/bash
 
-# - name: Configure Emacs
-#   shell: |
-#     ./configure --with-json
-#   args:
-#     chdir: /tmp/emacs-28.2
-#     executable: /bin/bash
+- name: Configure Emacs
+  shell: |
+    ./configure --with-json
+  args:
+    chdir: /tmp/emacs-28.2
+    executable: /bin/bash
 
-# - name: Compile Emacs
-#   shell: |
-#     make -j
-#   args:
-#     chdir: /tmp/emacs-28.2
-#     executable: /bin/bash
+- name: Compile Emacs
+  shell: |
+    make -j
+  args:
+    chdir: /tmp/emacs-28.2
+    executable: /bin/bash
 
-# - name: Install Emacs
-#   become: true
-#   shell: |
-#     sudo make install
-#   args:
-#     chdir: /tmp/emacs-28.2
-#     executable: /bin/bash
+- name: Install Emacs
+  become: true
+  shell: |
+    sudo make install
+  args:
+    chdir: /tmp/emacs-28.2
+    executable: /bin/bash
 
-# - name: Clean up
-#   become: true
-#   file:
-#     path: /tmp/emacs-28.2
-#     state: absent
+- name: Clean up
+  become: true
+  file:
+    path: /tmp/emacs-28.2
+    state: absent
 
 - name: Install Spacemacs
   git:

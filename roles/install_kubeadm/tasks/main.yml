@@ -40,11 +40,13 @@
     state: present
 
 - name: Hold kubeadm
+  become: true
   dpkg_selections:
     name: kubeadm
     selection: hold
 
 - name: Hold kubelet
+  become: true
   dpkg_selections:
     name: kubelet
     selection: hold

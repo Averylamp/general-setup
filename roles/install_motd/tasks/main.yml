@@ -1,0 +1,8 @@
+---
+- name: Execute motd
+  become: true
+  shell: |
+    line=$(hostname)
+    sudo grep -qxF "figlet $line" /etc/update-motd.d/00-header || echo "figlet $line" | sudo tee -a /etc/update-motd.d/00-header
+  args:
+    executable: /bin/bash

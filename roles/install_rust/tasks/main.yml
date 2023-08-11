@@ -1,0 +1,17 @@
+---
+- name: Install Rust Dependencies
+  become: true
+  apt:
+    name:
+      - libdbus-1-dev
+      - pkg-config
+      - libssl-dev
+      - libsensors-dev
+    state: present
+
+- name: Install Rust
+  become: true
+  shell: |
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  args:
+    executable: /bin/bash

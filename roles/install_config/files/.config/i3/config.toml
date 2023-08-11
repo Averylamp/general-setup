@@ -1,0 +1,68 @@
+[icons]
+icons = "awesome5"
+
+[theme]
+theme = "solarized-dark"
+
+[[block]]
+block = "focused_window"
+format = " $title.str(0,50) |"
+
+[[block]]
+block= "net"
+format= " ^icon_net_down $speed_down.eng(3,B,M) ^icon_net_up $speed_up.eng(3,B,M) "
+
+[[block]]
+block = "music"
+player = "spotify"
+format = " $icon {$combo.str(0,20) $play $next |}"
+
+[[block]]
+block = "docker"
+interval = 20
+format = " $icon $running/$total "
+
+[[block]]
+block = "memory"
+format = " $icon $mem_avail.eng(3,B)/$mem_total.eng(3,B)($mem_total_used_percents.eng(2)) "
+
+interval = 30
+warning_mem = 70
+critical_mem = 90
+
+[[block]]
+block = "temperature"
+format = " $icon $max max "
+format_alt = " $icon $min min, $max max, $average avg "
+interval = 10
+
+[[block]]
+block = "cpu"
+interval = 1
+format = " $icon $barchart $utilization $frequency "
+format_alt = " $icon $frequency{ $boost|} "
+
+[[block]]
+block = "nvidia_gpu"
+interval = 1
+
+[[block]]
+block = "load"
+interval = 1
+format = " $icon $1m $5m "
+
+[[block]]
+block = "sound"
+format = " $icon $volume "
+
+[[block]]
+block = "bluetooth"
+mac = "4C:87:5D:A3:AC:5B"
+format = " $icon "
+
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %m/%d %R"
+

@@ -1,0 +1,23 @@
+---
+- name: Install Zoom Dependencies
+  become: true
+  apt:
+    name:
+      - libgl1-mesa-glx
+      - libegl1-mesa
+      - libxcb-xtest0
+    state: present
+- name: Install Zoom
+  become: true
+  shell: |
+    wget https://zoom.us/client/5.15.5.5603/zoom_amd64.deb  -O zoom.deb
+    sudo dpkg -i zoom.deb
+    rm zoom.deb
+
+  args:
+    executable: /bin/bash
+
+- name: Apt Update
+  become: true
+  apt:
+    update_cache: yes

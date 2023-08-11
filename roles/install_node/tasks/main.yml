@@ -1,0 +1,23 @@
+---
+- name: Install Node Source
+  become: true
+  shell: |
+    curl -fsSL https://deb.nodesource.com/setup_18.x |  sudo bash
+  args:
+    executable: /bin/bash
+
+- name: Install Node
+  become: true
+  apt:
+    name:
+      - nodejs
+    state: present
+
+
+- name: Install Node Source
+  become: true
+  shell: |
+    sudo npm install -g npm
+    sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
+  args:
+    executable: /bin/bash
