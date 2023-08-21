@@ -47,7 +47,6 @@ This function should only modify configuration layer settings."
              cscope
              docker
              emacs-lisp
-             evil-snipe
              git
              (helm :variables helm-make-nproc
                    0)
@@ -571,6 +570,20 @@ before packages are loaded."
   ;;   (when (eq major-mode 'python-mode)
   ;;     (py-isort-before-save)))
   ;; (add-hook 'before-save-hook #'my-python-mode-before-save-hook)
+
+  (define-derived-mode astro-mode web-mode "astro")
+  (setq auto-mode-alist
+        (append '((".*\\.astro\\'" . astro-mode))
+                auto-mode-alist))
+
+  (with-eval-after-load 'lsp-mode
+    (add-to-list 'lsp-language-id-configuration
+                 '(astro-mode . "astro"))
+
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("astro-ls" "--stdio"))
+                      :activation-fn (lsp-activate-on "astro")
+                      :server-id 'astro-ls)))
   (evil-leader/set-key "i d" 'python-insert-docstring-with-google-style-at-point)
   ;; Text size
   (global-set-key (kbd "C-+")
