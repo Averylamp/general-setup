@@ -565,6 +565,13 @@ before packages are loaded."
   ;;     (prettier-js)))
   ;; (add-hook 'before-save-hook #'my-typescript-mode-before-save-hook)
 
+
+  ;; Astro Before Save Format Hook
+  (defun astro-mode-before-save-hook ()
+    (when (eq major-mode 'astro-mode)
+      (lsp-format-buffer)))
+  (add-hook 'before-save-hook #'astro-mode-before-save-hook)
+
   ;; ;; Isort for Python
   ;; (defun my-python-mode-before-save-hook ()
   ;;   (when (eq major-mode 'python-mode)
@@ -584,6 +591,7 @@ before packages are loaded."
      (make-lsp-client :new-connection (lsp-stdio-connection '("astro-ls" "--stdio"))
                       :activation-fn (lsp-activate-on "astro")
                       :server-id 'astro-ls)))
+
   (evil-leader/set-key "i d" 'python-insert-docstring-with-google-style-at-point)
   ;; Text size
   (global-set-key (kbd "C-+")
