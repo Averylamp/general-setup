@@ -18,6 +18,6 @@
   become: true
   shell: |
     sudo npm install -g npm
-    sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server
+    sudo npm install -g pyright vscode-json-languageserver yaml-language-server bash-language-server typescript tslint eslint typescript-formatter @astrojs/language-server typescript-language-server
   args:
     executable: /bin/bash

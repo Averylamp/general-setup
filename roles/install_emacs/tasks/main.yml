@@ -18,6 +18,7 @@
       - xaw3dg-dev
       - zlib1g-dev
       - libice-dev
+      - librsvg2-dev
       - libsm-dev
       - libx11-dev
       - libxext-dev
@@ -33,7 +34,7 @@
 
 - name: Download and extract Emacs source
   shell: |
-    wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-28.2.tar.xz | tar -xJ
+    wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.xz | tar -xJ
   args:
     chdir: /tmp
 
@@ -42,21 +43,21 @@
   shell: |
     sudo make clean
   args:
-    chdir: /tmp/emacs-28.2
+    chdir: /tmp/emacs-29.1
     executable: /bin/bash
 
 - name: Configure Emacs
   shell: |
     ./configure --with-json
   args:
-    chdir: /tmp/emacs-28.2
+    chdir: /tmp/emacs-29.1
     executable: /bin/bash
 
 - name: Compile Emacs
   shell: |
     make -j
   args:
-    chdir: /tmp/emacs-28.2
+    chdir: /tmp/emacs-29.1
     executable: /bin/bash
 
 - name: Install Emacs
@@ -64,13 +65,13 @@
   shell: |
     sudo make install
   args:
-    chdir: /tmp/emacs-28.2
+    chdir: /tmp/emacs-29.1
     executable: /bin/bash
 
 - name: Clean up
   become: true
   file:
-    path: /tmp/emacs-28.2
+    path: /tmp/emacs-29.1
     state: absent
 
 - name: Install Spacemacs
