@@ -4,12 +4,26 @@ export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$PATH
 
 ZSH_DISABLE_COMPFIX=true
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="/home/avery/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
 plugins=(zsh-autosuggestions colored-man-pages docker docker-compose gcloud git-flow-avh git gitignore history minikube terraform vagrant kubectl autojump)
 
 source $ZSH/oh-my-zsh.sh
+
+prompt_segment() {
+  local bg fg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
+    print -n "%{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%}"
+  else
+    print -n "%{$bg%}%{$fg%}"
+  fi
+  CURRENT_BG=$1
+  [[ -n $3 ]] && print -n $3
+}
+
 
 # Git: branch/detached head, dirty status
 prompt_git() {
@@ -120,16 +134,19 @@ export PATH="/usr/local/sbin:$PATH"
 alias capsctrl="setxkbmap -layout us -option ctrl:nocaps"
 alias sl="ls"
 
-PROMPT="%F{red}%n%f"
-PROMPT+="@"
-PROMPT+="%F{blue}${${(%):-%m}#zoltan-}%f"
-PROMPT+=" "
-PROMPT+="%F{yellow}%1~ %f"
-PROMPT+="$ "
+
+PRE_PROMPT="%F{red}%n%f"
+PRE_PROMPT+="@"
+PRE_PROMPT+="%F{blue}${${(%):-%m}#zoltan-}%f"
+PROMPT="$PRE_PROMPT $PROMPT"
 
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
-# setxkbmap -option altwin:swap_alt_win
+setxkbmap -option altwin:swap_alt_win
 alias performance='echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 
+
+export SKIP_INPUT=true
+alias sleepscreen='xset dpms force suspend'
+export HF_DATASETS_CACHE="/mnt/localdisk/hfdata"
