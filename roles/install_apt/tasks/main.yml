@@ -66,6 +66,7 @@
       - curl
       - wget
       - cmake
+      - xsel
 
       # i3
       - rofi

@@ -19,9 +19,7 @@ This function should only modify configuration layer settings."
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused) dotspacemacs-enable-lazy-installation 'unused dotspacemacs-enable-lazy-installation 'unused
    ;; If non-nil then Spacemacs will ask for confirmation before installing
-   ;; a layer lazily. (default t) dotspacemacs-ask-for-lazy-installation t
-   dotspacemacs-ask-for-lazy-installation
-   t
+   ;; a layer lazily. (default t) dotspacemacs-ask-for-lazy-installation t dotspacemacs-ask-for-lazy-installation t
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/') dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layer-path
@@ -102,6 +100,8 @@ This function should only modify configuration layer settings."
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages
    '(python-docstring python-insert-docstring
+                      (prisma-mode :location (recipe :fetcher github
+                                                     :repo "pimeys/emacs-prisma-mode"))
                       (copilot :location (recipe :fetcher github
                                                  :repo "zerolfx/copilot.el"
                                                  :files ("*.el" "dist"))))
@@ -163,9 +163,7 @@ It should only modify the values of Spacemacs settings."
    ;; a locked version of packages. If nil then Spacemacs will install the
    ;; latest version of packages from MELPA. Spacelpa is currently in
    ;; experimental state please use only for testing purposes.
-   ;; (default nil)
-   dotspacemacs-use-spacelpa
-   nil
+   ;; (default nil) dotspacemacs-use-spacelpa nil
    ;; If non-nil then verify the signature for downloaded Spacelpa archives.
    ;; (default t)
    dotspacemacs-verify-spacelpa-archives
@@ -560,38 +558,33 @@ before packages are loaded."
   ;; LSP Delay
   (setq lsp-idle-delay 0.4)
   ;; ;; Prettier for Typescript
-  ;; (defun my-typescript-mode-before-save-hook ()
-  ;;   (when (eq major-mode 'typescript-mode)
-  ;;     (prettier-js)))
-  ;; (add-hook 'before-save-hook #'my-typescript-mode-before-save-hook)
-
-
+  (defun my-typescript-mode-before-save-hook ()
+    (when (eq major-mode 'typescript-mode)
+      (prettier-js)))
+  (add-hook 'before-save-hook #'my-typescript-mode-before-save-hook)
   ;; Astro Before Save Format Hook
   (defun astro-mode-before-save-hook ()
     (when (eq major-mode 'astro-mode)
       (lsp-format-buffer)))
   (add-hook 'before-save-hook #'astro-mode-before-save-hook)
-
   ;; ;; Isort for Python
-  ;; (defun my-python-mode-before-save-hook ()
-  ;;   (when (eq major-mode 'python-mode)
-  ;;     (py-isort-before-save)))
-  ;; (add-hook 'before-save-hook #'my-python-mode-before-save-hook)
-
+  (defun python-mode-before-save-hook ()
+    (when (eq major-mode 'python-mode)
+      (py-isort-before-save)))
+  (add-hook 'before-save-hook #'python-mode-before-save-hook)
+  (defun python-mode-before-save-hook-format ()
+    (when (eq major-mode 'python-mode)
+      (spacemacs/python-format-buffer)))
+  (add-hook 'before-save-hook #'python-mode-before-save-hook-format)
   (define-derived-mode astro-mode web-mode "astro")
-  (setq auto-mode-alist
-        (append '((".*\\.astro\\'" . astro-mode))
-                auto-mode-alist))
-
+  (setq auto-mode-alist (append '((".*\\.astro\\'" . astro-mode))
+                                auto-mode-alist))
   (with-eval-after-load 'lsp-mode
     (add-to-list 'lsp-language-id-configuration
                  '(astro-mode . "astro"))
-
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection '("astro-ls" "--stdio"))
-                      :activation-fn (lsp-activate-on "astro")
-                      :server-id 'astro-ls)))
-
+    (lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection '("astro-ls" "--stdio")):activation-fn
+                                          (lsp-activate-on "astro")
+                                          :server-id 'astro-ls)))
   (evil-leader/set-key "i d" 'python-insert-docstring-with-google-style-at-point)
   ;; Text size
   (global-set-key (kbd "C-+")
@@ -662,121 +655,121 @@ This function is called at the very end of Spacemacs initialization."
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(evil-want-Y-yank-to-eol nil)
-   '(package-selected-packages '(copilot company-terraform terraform-mode
-                                         hcl-mode systemd journalctl-mode powershell
-                                         bmx-mode godoctor go-tag go-rename go-impl
-                                         go-guru go-gen-test go-fill-struct go-eldoc
-                                         company-go go-mode python-insert-docstring
-                                         python-docstring yasnippet-classic-snippets
-                                         rjsx-mode tide skewer-mode multiple-cursors
-                                         js2-mode company-statistics company-quickhelp
-                                         typescript-mode import-js grizzl toml-mode
-                                         ron-mode racer rust-mode helm-gtags ggtags
-                                         flycheck-rust counsel-gtags cargo modus-themes
-                                         lsp-jedi jedi jedi-core python-environment
-                                         simple-httpd haml-mode counsel-css counsel
-                                         swiper ivy web-completion-data add-node-modules-path
-                                         hierarchy bui pyvenv org-category-capture
-                                         alert log4e gntp magit-popup origami epc ctable
-                                         concurrent htmlize xcscope gitignore-mode
-                                         fringe-helper git-gutter+ gh marshal logito
-                                         pcache magit ghub closql emacsql-sqlite emacsql
-                                         treepy git-commit with-editor flyspell-correct
-                                         pos-tip transient tablist json-mode docker-tramp
-                                         json-snatcher json-reformat ycmd request-deferred
-                                         deferred rtags company autothemer lsp-mode
-                                         markdown-mode dash-functional anaconda-mode
-                                         pythonic auto-complete evil-mc yasnippet-snippets
-                                         zenburn-theme zen-and-art-theme yapfify yaml-mode
-                                         xterm-color ws-butler writeroom-mode winum
-                                         white-sand-theme which-key web-mode web-beautify
-                                         vterm volatile-highlights vi-tilde-fringe
-                                         uuidgen use-package unfill undo-tree underwater-theme
-                                         ujelly-theme twilight-theme twilight-bright-theme
-                                         twilight-anti-bright-theme treemacs-projectile
-                                         treemacs-persp treemacs-magit treemacs-icons-dired
-                                         treemacs-evil toxi-theme toc-org terminal-here
-                                         tao-theme tangotango-theme tango-plus-theme
-                                         tango-2-theme tagedit symon symbol-overlay
-                                         sunny-day-theme sublime-themes subatomic256-theme
-                                         subatomic-theme string-inflection stickyfunc-enhance
-                                         srefactor sphinx-doc spaceline-all-the-icons
-                                         spacegray-theme soothe-theme solarized-theme
-                                         soft-stone-theme soft-morning-theme soft-charcoal-theme
-                                         smyx-theme smeargle slim-mode shell-pop seti-theme
-                                         scss-mode sass-mode reverse-theme restart-emacs
-                                         rebecca-theme rainbow-mode rainbow-identifiers
-                                         rainbow-delimiters railscasts-theme pytest
-                                         pyenv-mode py-isort purple-haze-theme pug-mode
-                                         professional-theme prettier-js popwin poetry
-                                         planet-theme pippel pipenv pip-requirements
-                                         phoenix-dark-pink-theme phoenix-dark-mono-theme
-                                         pcre2el password-generator paradox overseer
-                                         orgit organic-green-theme org-superstar org-rich-yank
-                                         org-projectile org-present org-pomodoro org-mime
-                                         org-download org-cliplink org-brain open-junk-file
-                                         omtose-phellack-theme oldlace-theme occidental-theme
-                                         obsidian-theme npm-mode nodejs-repl noctilux-theme
-                                         nginx-mode naquadah-theme nameless mwim mustang-theme
-                                         multi-term move-text monokai-theme monochrome-theme
-                                         molokai-theme moe-theme modus-vivendi-theme
-                                         modus-operandi-theme mmm-mode minimal-theme
-                                         material-theme markdown-toc majapahit-theme
-                                         magit-svn magit-section magit-gitflow madhat2r-theme
-                                         macrostep lush-theme lsp-ui lsp-treemacs lsp-python-ms
-                                         lsp-pyright lsp-origami lorem-ipsum livid-mode
-                                         live-py-mode link-hint light-soap-theme kaolin-themes
-                                         json-navigator js2-refactor js-doc jinja2-mode
-                                         jbeans-theme jazz-theme ir-black-theme insert-shebang
-                                         inkpot-theme indent-guide importmagic impatient-mode
-                                         hybrid-mode hungry-delete hl-todo highlight-parentheses
-                                         highlight-numbers highlight-indentation heroku-theme
-                                         hemisu-theme helm-xref helm-themes helm-swoop
-                                         helm-rtags helm-pydoc helm-purpose helm-projectile
-                                         helm-org-rifle helm-org helm-mode-manager
-                                         helm-make helm-lsp helm-ls-git helm-gitignore
-                                         helm-git-grep helm-flx helm-descbinds helm-css-scss
-                                         helm-cscope helm-company helm-c-yasnippet
-                                         helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme
-                                         grip-mode grandshell-theme gotham-theme google-translate
-                                         google-c-style golden-ratio gnuplot gitignore-templates
-                                         github-search github-clone gitconfig-mode
-                                         gitattributes-mode git-timemachine git-messenger
-                                         git-link git-gutter-fringe+ gist gh-md gandalf-theme
-                                         fuzzy forge font-lock+ flyspell-correct-helm
-                                         flycheck-ycmd flycheck-rtags flycheck-pos-tip
-                                         flycheck-package flycheck-elsa flycheck-bashate
-                                         flx-ido flatui-theme flatland-theme fish-mode
-                                         fill-column-indicator farmhouse-theme fancy-battery
-                                         eziam-theme eyebrowse expand-region exotica-theme
-                                         evil-visualstar evil-visual-mark-mode evil-unimpaired
-                                         evil-tutor evil-textobj-line evil-surround
-                                         evil-snipe evil-org evil-numbers evil-nerd-commenter
-                                         evil-matchit evil-lisp-state evil-lion evil-indent-plus
-                                         evil-iedit-state evil-goggles evil-exchange
-                                         evil-escape evil-ediff evil-easymotion evil-collection
-                                         evil-cleverparens evil-args evil-anzu eval-sexp-fu
-                                         espresso-theme eshell-z eshell-prompt-extras
-                                         esh-help engine-mode emr emmet-mode elisp-slime-nav
-                                         editorconfig dumb-jump dracula-theme dotenv-mode
-                                         doom-themes dockerfile-mode docker django-theme
-                                         disaster dired-quick-sort diminish devdocs
-                                         define-word darktooth-theme darkokai-theme
-                                         darkmine-theme darkburn-theme dakrone-theme
-                                         cython-mode cyberpunk-theme cpp-auto-include
-                                         company-ycmd company-web company-shell company-rtags
-                                         company-c-headers company-ansible company-anaconda
-                                         column-enforce-mode color-theme-sanityinc-tomorrow
-                                         color-theme-sanityinc-solarized color-identifiers-mode
-                                         clues-theme clean-aindent-mode chocolate-theme
-                                         cherry-blossom-theme centered-cursor-mode
-                                         ccls busybee-theme bubbleberry-theme browse-at-remote
-                                         blacken birds-of-paradise-plus-theme badwolf-theme
-                                         auto-yasnippet auto-highlight-symbol auto-dictionary
-                                         auto-compile apropospriate-theme anti-zenburn-theme
-                                         ansible-doc ansible ample-zen-theme ample-theme
-                                         alect-themes aggressive-indent afternoon-theme
-                                         ace-link ace-jump-helm-line ac-ispell))
+   '(package-selected-packages '(prisma-mode copilot company-terraform terraform-mode
+                                             hcl-mode systemd journalctl-mode powershell
+                                             bmx-mode godoctor go-tag go-rename go-impl
+                                             go-guru go-gen-test go-fill-struct go-eldoc
+                                             company-go go-mode python-insert-docstring
+                                             python-docstring yasnippet-classic-snippets
+                                             rjsx-mode tide skewer-mode multiple-cursors
+                                             js2-mode company-statistics company-quickhelp
+                                             typescript-mode import-js grizzl toml-mode
+                                             ron-mode racer rust-mode helm-gtags ggtags
+                                             flycheck-rust counsel-gtags cargo modus-themes
+                                             lsp-jedi jedi jedi-core python-environment
+                                             simple-httpd haml-mode counsel-css counsel
+                                             swiper ivy web-completion-data add-node-modules-path
+                                             hierarchy bui pyvenv org-category-capture
+                                             alert log4e gntp magit-popup origami epc ctable
+                                             concurrent htmlize xcscope gitignore-mode
+                                             fringe-helper git-gutter+ gh marshal logito
+                                             pcache magit ghub closql emacsql-sqlite emacsql
+                                             treepy git-commit with-editor flyspell-correct
+                                             pos-tip transient tablist json-mode docker-tramp
+                                             json-snatcher json-reformat ycmd request-deferred
+                                             deferred rtags company autothemer lsp-mode
+                                             markdown-mode dash-functional anaconda-mode
+                                             pythonic auto-complete evil-mc yasnippet-snippets
+                                             zenburn-theme zen-and-art-theme yapfify yaml-mode
+                                             xterm-color ws-butler writeroom-mode winum
+                                             white-sand-theme which-key web-mode web-beautify
+                                             vterm volatile-highlights vi-tilde-fringe
+                                             uuidgen use-package unfill undo-tree underwater-theme
+                                             ujelly-theme twilight-theme twilight-bright-theme
+                                             twilight-anti-bright-theme treemacs-projectile
+                                             treemacs-persp treemacs-magit treemacs-icons-dired
+                                             treemacs-evil toxi-theme toc-org terminal-here
+                                             tao-theme tangotango-theme tango-plus-theme
+                                             tango-2-theme tagedit symon symbol-overlay
+                                             sunny-day-theme sublime-themes subatomic256-theme
+                                             subatomic-theme string-inflection stickyfunc-enhance
+                                             srefactor sphinx-doc spaceline-all-the-icons
+                                             spacegray-theme soothe-theme solarized-theme
+                                             soft-stone-theme soft-morning-theme soft-charcoal-theme
+                                             smyx-theme smeargle slim-mode shell-pop seti-theme
+                                             scss-mode sass-mode reverse-theme restart-emacs
+                                             rebecca-theme rainbow-mode rainbow-identifiers
+                                             rainbow-delimiters railscasts-theme pytest
+                                             pyenv-mode py-isort purple-haze-theme pug-mode
+                                             professional-theme prettier-js popwin poetry
+                                             planet-theme pippel pipenv pip-requirements
+                                             phoenix-dark-pink-theme phoenix-dark-mono-theme
+                                             pcre2el password-generator paradox overseer
+                                             orgit organic-green-theme org-superstar org-rich-yank
+                                             org-projectile org-present org-pomodoro org-mime
+                                             org-download org-cliplink org-brain open-junk-file
+                                             omtose-phellack-theme oldlace-theme occidental-theme
+                                             obsidian-theme npm-mode nodejs-repl noctilux-theme
+                                             nginx-mode naquadah-theme nameless mwim mustang-theme
+                                             multi-term move-text monokai-theme monochrome-theme
+                                             molokai-theme moe-theme modus-vivendi-theme
+                                             modus-operandi-theme mmm-mode minimal-theme
+                                             material-theme markdown-toc majapahit-theme
+                                             magit-svn magit-section magit-gitflow madhat2r-theme
+                                             macrostep lush-theme lsp-ui lsp-treemacs lsp-python-ms
+                                             lsp-pyright lsp-origami lorem-ipsum livid-mode
+                                             live-py-mode link-hint light-soap-theme kaolin-themes
+                                             json-navigator js2-refactor js-doc jinja2-mode
+                                             jbeans-theme jazz-theme ir-black-theme insert-shebang
+                                             inkpot-theme indent-guide importmagic impatient-mode
+                                             hybrid-mode hungry-delete hl-todo highlight-parentheses
+                                             highlight-numbers highlight-indentation heroku-theme
+                                             hemisu-theme helm-xref helm-themes helm-swoop
+                                             helm-rtags helm-pydoc helm-purpose helm-projectile
+                                             helm-org-rifle helm-org helm-mode-manager
+                                             helm-make helm-lsp helm-ls-git helm-gitignore
+                                             helm-git-grep helm-flx helm-descbinds helm-css-scss
+                                             helm-cscope helm-company helm-c-yasnippet
+                                             helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme
+                                             grip-mode grandshell-theme gotham-theme google-translate
+                                             google-c-style golden-ratio gnuplot gitignore-templates
+                                             github-search github-clone gitconfig-mode
+                                             gitattributes-mode git-timemachine git-messenger
+                                             git-link git-gutter-fringe+ gist gh-md gandalf-theme
+                                             fuzzy forge font-lock+ flyspell-correct-helm
+                                             flycheck-ycmd flycheck-rtags flycheck-pos-tip
+                                             flycheck-package flycheck-elsa flycheck-bashate
+                                             flx-ido flatui-theme flatland-theme fish-mode
+                                             fill-column-indicator farmhouse-theme fancy-battery
+                                             eziam-theme eyebrowse expand-region exotica-theme
+                                             evil-visualstar evil-visual-mark-mode evil-unimpaired
+                                             evil-tutor evil-textobj-line evil-surround
+                                             evil-snipe evil-org evil-numbers evil-nerd-commenter
+                                             evil-matchit evil-lisp-state evil-lion evil-indent-plus
+                                             evil-iedit-state evil-goggles evil-exchange
+                                             evil-escape evil-ediff evil-easymotion evil-collection
+                                             evil-cleverparens evil-args evil-anzu eval-sexp-fu
+                                             espresso-theme eshell-z eshell-prompt-extras
+                                             esh-help engine-mode emr emmet-mode elisp-slime-nav
+                                             editorconfig dumb-jump dracula-theme dotenv-mode
+                                             doom-themes dockerfile-mode docker django-theme
+                                             disaster dired-quick-sort diminish devdocs
+                                             define-word darktooth-theme darkokai-theme
+                                             darkmine-theme darkburn-theme dakrone-theme
+                                             cython-mode cyberpunk-theme cpp-auto-include
+                                             company-ycmd company-web company-shell company-rtags
+                                             company-c-headers company-ansible company-anaconda
+                                             column-enforce-mode color-theme-sanityinc-tomorrow
+                                             color-theme-sanityinc-solarized color-identifiers-mode
+                                             clues-theme clean-aindent-mode chocolate-theme
+                                             cherry-blossom-theme centered-cursor-mode
+                                             ccls busybee-theme bubbleberry-theme browse-at-remote
+                                             blacken birds-of-paradise-plus-theme badwolf-theme
+                                             auto-yasnippet auto-highlight-symbol auto-dictionary
+                                             auto-compile apropospriate-theme anti-zenburn-theme
+                                             ansible-doc ansible ample-zen-theme ample-theme
+                                             alect-themes aggressive-indent afternoon-theme
+                                             ace-link ace-jump-helm-line ac-ispell))
    '(python-shell-interpreter "python3"))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
