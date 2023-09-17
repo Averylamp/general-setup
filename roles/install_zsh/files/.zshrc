@@ -132,6 +132,7 @@ export PATH="/usr/local/sbin:$PATH"
 
 
 alias capsctrl="setxkbmap -layout us -option ctrl:nocaps"
+alias altwin="setxkbmap -option altwin:swap_alt_win"
 alias sl="ls"
 
 
@@ -143,10 +144,14 @@ PROMPT="$PRE_PROMPT $PROMPT"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
-setxkbmap -option altwin:swap_alt_win
 alias performance='echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 
 
 export SKIP_INPUT=true
 alias sleepscreen='xset dpms force suspend'
 export HF_DATASETS_CACHE="/mnt/localdisk/hfdata"
+
+alias dropdb='npx prisma db execute --file prisma/drop_db.sql'
+alias pushdb='npx prisma db push'
+alias seeddb='npx prisma db seed'
+
