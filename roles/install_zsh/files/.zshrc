@@ -143,10 +143,17 @@ PROMPT="$PRE_PROMPT $PROMPT"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
-setxkbmap -option altwin:swap_alt_win
+
+alias altwin='setxkbmap -option altwin:swap_alt_win'
 alias performance='echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias powersave='echo "powersave" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
 
 
 export SKIP_INPUT=true
 alias sleepscreen='xset dpms force suspend'
 export HF_DATASETS_CACHE="/mnt/localdisk/hfdata"
+alias audioout='pacmd set-default-sink alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire_2__sink'
+alias audiojack='pacmd set-default-sink alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire__sink'
+alias audiomonitor='pacmd set-default-sink alsa_output.usb-LG_Electronics_Inc._USB_Audio-00.analog-stereo'
+alias audiodac='pacmd set-default-sink alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo'
+

@@ -1,6 +1,6 @@
 ---
 - name: Setup a new machine
-  hosts: avery-seacow
+  hosts: localhost
   remote_user: avery
 
   tasks:
