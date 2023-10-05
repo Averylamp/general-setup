@@ -78,6 +78,7 @@
       - net-tools
       - vnstat
       - lm-sensors
+      - fio
 
       # search tools
       - ripgrep
