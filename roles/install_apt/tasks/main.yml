@@ -68,9 +68,6 @@
       - cmake
       - xsel
 
-      # i3
-      - rofi
-      - i3
 
       # perf tools
       - nload

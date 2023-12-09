@@ -13,7 +13,7 @@
       - mypy
       - importmagic
       - isort
-      - epc
+        #      - epc
       - toml
       - ansible
     state: present

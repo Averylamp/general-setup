@@ -1,0 +1,9 @@
+---
+- name: Install Software
+  become: true
+  apt:
+    name
+      - rofi
+      - i3
+
+

@@ -10,15 +10,15 @@
   args:
     executable: /bin/bash
 
-# - name: Create symbolic link to kitty
-#   become: true
-#   file:
-#     src: "{{ ansible_env.HOME }}/.local/kitty.app/bin/kitty"
-#     dest: /usr/bin/kitty
-#     state: link
+- name: Create symbolic link to kitty
+  become: true
+  file:
+    src: "{{ ansible_env.HOME }}/.local/kitty.app/bin/kitty"
+    dest: /usr/bin/kitty
+    state: link
 
-# - name: Copy desktop file
-#   copy:
-#     src: "{{ ansible_env.HOME }}/.local/kitty.app/share/applications/kitty.dekstop"
-#     dest: /usr/share/applications/kitty.dekstop
-#     remote_src: yes
+- name: Copy desktop file
+  copy:
+    src: "{{ ansible_env.HOME }}/.local/kitty.app/share/applications/kitty.dekstop"
+    dest: /usr/share/applications/kitty.dekstop
+    remote_src: yes

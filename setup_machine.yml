@@ -71,3 +71,7 @@
   - name: Install Config
     include_role:
       name: install_config
+
+  - name: Install i3
+    include_role:
+      name: install_i3
