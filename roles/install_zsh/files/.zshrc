@@ -129,6 +129,8 @@ alias e="emacs -nw"
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 export PATH="/usr/local/sbin:$PATH"
+# Rust
+export PATH="$HOME/.cargo/env:$PATH"
 
 
 alias capsctrl="setxkbmap -layout us -option ctrl:nocaps"

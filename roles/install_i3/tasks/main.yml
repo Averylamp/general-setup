@@ -6,4 +6,33 @@
       - rofi
       - i3
 
+      # i3-status-rust
+      - gcc
+      - libssl-dev
+      - libsensors-dev
+      - libpulse-dev
+      - pandoc
+
+
+# Git clone repo to tmp
+- name: Clone repo i3-status rust
+  git:
+    repo: git@github.com:greshake/i3status-rust
+    dest: /tmp/i3status-rust
+    update: yes
+
+# Build i3-status
+- name: Build i3-status
+  shell: cargo install --path . --locked
+  args:
+    chdir: /tmp/i3status-rust
+
+
+# Install i3-status
+- name: Install i3-status
+  args:
+    chdir: /tmp/i3status-rust
+  shell:
+    cmd: ./install.sh
+
 
