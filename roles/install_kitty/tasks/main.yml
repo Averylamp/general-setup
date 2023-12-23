@@ -18,7 +18,8 @@
     state: link
 
 - name: Copy desktop file
+  become: true
   copy:
-    src: "{{ ansible_env.HOME }}/.local/kitty.app/share/applications/kitty.dekstop"
+    src: "{{ ansible_env.HOME }}/.local/kitty.app/share/applications/kitty.desktop"
     dest: /usr/share/applications/kitty.dekstop
     remote_src: yes
