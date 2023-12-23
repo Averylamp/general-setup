@@ -2,7 +2,7 @@
 - name: Install Software
   become: true
   apt:
-    name
+    name:
       - rofi
       - i3
 
