@@ -1,6 +1,6 @@
 [global]
 bs=10M
-numjobs=8
+numjobs=16
 size=10G
 direct=1
 directory=/mnt/localdisk
@@ -10,6 +10,7 @@ group_reporting
 iodepth=2
 
 [write_throughput]
+stonewall
 numjobs=4
 rw=write
 bs=1000M
@@ -21,8 +22,6 @@ numjobs=4
 rw=read
 bs=1000M
 size=50G
-size=1G
-
 
 [write_iops]
 stonewall
