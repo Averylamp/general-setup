@@ -27,13 +27,14 @@ size=50G
 stonewall
 rw=randwrite
 bs=4k
+size=5G
 iodepth=64
 
 [read_iops]
 stonewall
 rw=randread
 bs=4k
-size=1G
+size=5G
 iodepth=64
 
 [read_write_iops]
@@ -41,5 +42,5 @@ stonewall
 rw=randrw
 rwmixread=70
 bs=4k
-size=1G
+size=5G
 iodepth=64
