@@ -1,9 +1,8 @@
 [global]
 bs=10M
-numjobs=16
 size=10G
 direct=1
-directory=/mnt/localdisk
+directory=/mnt/localdisk/perf
 ioengine=libaio
 runtime=1m
 group_reporting
@@ -25,7 +24,6 @@ size=50G
 
 [write_iops]
 stonewall
-numjobs=32
 rw=randwrite
 bs=4k
 size=5G
@@ -33,7 +31,6 @@ iodepth=64
 
 [read_iops]
 stonewall
-numjobs=32
 rw=randread
 bs=4k
 size=5G
@@ -41,7 +38,6 @@ iodepth=64
 
 [read_write_iops]
 stonewall
-numjobs=32
 rw=randrw
 rwmixread=70
 bs=4k
