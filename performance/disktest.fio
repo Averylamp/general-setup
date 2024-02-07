@@ -25,6 +25,7 @@ size=50G
 
 [write_iops]
 stonewall
+numjobs=32
 rw=randwrite
 bs=4k
 size=5G
@@ -32,6 +33,7 @@ iodepth=64
 
 [read_iops]
 stonewall
+numjobs=32
 rw=randread
 bs=4k
 size=5G
@@ -39,6 +41,7 @@ iodepth=64
 
 [read_write_iops]
 stonewall
+numjobs=32
 rw=randrw
 rwmixread=70
 bs=4k
