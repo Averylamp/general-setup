@@ -12,6 +12,11 @@ for chunk_size in "${chunk_sizes[@]}"; do
 	chown -R avery:magicloop /mnt/testers
 	find /mnt/large-storage/perf2 -type f -name "read*" | parallel -j 16 cp -p {} /mnt/testers/d0/{/}
 	fio --numjobs 24 disktest.fio > results/md_0_4_${chunk_size}
+	sleep 10
+	umount /mnt/testers/d0
+	sleep 10
+	mdadm --stop /dev/md0
+	sleep 10
 done
 
 for chunk_size in "${chunk_sizes[@]}"; do
