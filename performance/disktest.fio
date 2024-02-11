@@ -2,7 +2,7 @@
 bs=10M
 size=10G
 direct=1
-directory=/mnt/localdisk/perf
+directory=/mnt/testers/d0
 ioengine=libaio
 runtime=1m
 group_reporting
@@ -10,17 +10,17 @@ iodepth=2
 
 [write_throughput]
 stonewall
-numjobs=4
+numjobs=8
 rw=write
 bs=1000M
-size=50G
+size=20G
 
 [read_throughput]
 stonewall
-numjobs=4
+numjobs=8
 rw=read
 bs=1000M
-size=50G
+size=20G
 
 [write_iops]
 stonewall
