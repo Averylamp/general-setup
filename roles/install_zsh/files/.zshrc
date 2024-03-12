@@ -120,7 +120,6 @@ prompt_dir() {
   prompt_segment blue $CURRENT_FG '%2~'
 }
 
-alias e="emacs -nw"
 
 # Kube Autocomplete
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
@@ -128,39 +127,45 @@ alias e="emacs -nw"
 # Autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+
+# Path Changes
 export PATH="/usr/local/sbin:$PATH"
-# Rust
 export PATH="$HOME/.cargo/env:$PATH"
-
-
-alias capsctrl="setxkbmap -layout us -option ctrl:nocaps"
-alias altwin="setxkbmap -option altwin:swap_alt_win"
-alias sl="ls"
-
+# Rust
 
 PRE_PROMPT="%F{red}%n%f"
 PRE_PROMPT+="@"
 PRE_PROMPT+="%F{blue}${${(%):-%m}#zoltan-}%f"
 PROMPT="$PRE_PROMPT $PROMPT"
 
+
+# Configuration
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
+
+# Peripheral Control
+alias capsctrl="setxkbmap -layout us -option ctrl:nocaps"
+alias altwin="setxkbmap -option altwin:swap_alt_win"
 alias altwin='setxkbmap -option altwin:swap_alt_win'
-alias performance='echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-alias powersave='echo "powersave" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
-
-
-export SKIP_INPUT=true
 alias sleepscreen='xset dpms force suspend'
-export HF_DATASETS_CACHE="/mnt/localdisk/hfdata"
 alias audioout='pacmd set-default-sink alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire_2__sink'
 alias audiojack='pacmd set-default-sink alsa_output.pci-0000_00_1f.3-platform-sof_sdw.HiFi__hw_sofsoundwire__sink'
 alias audiomonitor='pacmd set-default-sink alsa_output.usb-LG_Electronics_Inc._USB_Audio-00.analog-stereo'
 alias audiodac='pacmd set-default-sink alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo'
 
+
+# Convenience Commands
+alias sl="ls"
+alias e="emacs -nw"
+alias performance='echo "performance" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias powersave='echo "powersave" | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor'
+alias dircache='find . -maxdepth 2 -mindepth 2 -type d | parallel "find {}"'
+
 alias dropdb='npx prisma db execute --file prisma/drop_db.sql'
 alias pushdb='npx prisma db push'
 alias seeddb='npx prisma db seed'
+
+
 
