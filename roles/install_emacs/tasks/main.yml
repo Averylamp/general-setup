@@ -7,7 +7,7 @@
 
 - name: Set fact for Emacs version
   set_fact:
-    emacs_version: "{{ emacs_version_output.stdout_lines[0] | regex_search('Emacs\\s+(\\S+)', '\\1') }}"
+    emacs_version: "{{ emacs_version_output.stdout_lines[0] | regex_search('Emacs\\s+(\\S+)', '\\1') | first }}"
   when: emacs_version_output.rc == 0
 
 - name: Run Emacs Install if version mismatch
