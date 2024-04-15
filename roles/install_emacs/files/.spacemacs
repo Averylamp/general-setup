@@ -552,10 +552,10 @@ before packages are loaded."
           company-frontends))
   (with-eval-after-load 'copilot
     (define-key copilot-completion-map (kbd "<tab>") 'copilot-accept-completion)
-    (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion))
+    (define-key copilot-completion-map (kbd "TAB") 'copilot-accept-completion)
+    (define-key evil-insert-state-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
+    (define-key evil-insert-state-map (kbd "C-TAB") 'copilot-accept-completion-by-word))
   (add-hook 'prog-mode-hook 'copilot-mode)
-  (define-key evil-insert-state-map (kbd "C-<tab>") 'copilot-accept-completion-by-word)
-  (define-key evil-insert-state-map (kbd "C-TAB") 'copilot-accept-completion-by-word)
   ;; LSP Delay
   (setq lsp-idle-delay 0.4)
   ;; ;; Prettier for Typescript
