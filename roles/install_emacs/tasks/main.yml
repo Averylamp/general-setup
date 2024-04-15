@@ -31,6 +31,8 @@
       - libxtst-dev
       - libxv-dev
       - elpa-yasnippet-snippets
+      - libtool-bin 
+      - libvterm-dev
 
 - name: Download and extract Emacs source
   shell: |
