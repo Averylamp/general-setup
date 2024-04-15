@@ -1,95 +1,109 @@
 ---
+- name: Get Emacs version
+  command: emacs --version
+  register: emacs_version_output
+  changed_when: false
+  ignore_errors: true
 
-- name: Install required packages
-  become: true
-  apt:
-    name:
-      - imagemagick
-      - libjansson4
-      - libjansson-dev
-      - gnutls-bin
-      - libc6-dev
-      - pkg-config
-      - libgnutls28-dev
-      - libncurses5-dev
-      - libpng-dev
-      - libtiff5-dev
-      - libgif-dev
-      - xaw3dg-dev
-      - zlib1g-dev
-      - libice-dev
-      - librsvg2-dev
-      - libsm-dev
-      - libx11-dev
-      - libxext-dev
-      - libxi-dev
-      - libxmu-dev
-      - libxmuu-dev
-      - libxpm-dev
-      - libxrandr-dev
-      - libxt-dev
-      - libxtst-dev
-      - libxv-dev
-      - elpa-yasnippet-snippets
-      - libtool-bin 
-      - libvterm-dev
+- name: Set fact for Emacs version
+  set_fact:
+    emacs_version: "{{ emacs_version_output.stdout_lines[0] | regex_search('Emacs\\s+(\\S+)', '\\1') }}"
+  when: emacs_version_output.rc == 0
 
-- name: Download and extract Emacs source
-  shell: |
-    wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.xz | tar -xJ
-  args:
-    chdir: /tmp
+- name: Run Emacs Install if version mismatch
+  when: emacs_version != "29.1"
+  block:
 
-- name: Clean Emacs
-  become: true
-  shell: |
-    sudo make clean
-  args:
-    chdir: /tmp/emacs-29.1
-    executable: /bin/bash
+    - name: Install required packages
+      become: true
+      apt:
+        name:
+          - imagemagick
+          - libjansson4
+          - libjansson-dev
+          - gnutls-bin
+          - libc6-dev
+          - pkg-config
+          - libgnutls28-dev
+          - libncurses5-dev
+          - libpng-dev
+          - libtiff5-dev
+          - libgif-dev
+          - xaw3dg-dev
+          - zlib1g-dev
+          - libice-dev
+          - librsvg2-dev
+          - libsm-dev
+          - libx11-dev
+          - libxext-dev
+          - libxi-dev
+          - libxmu-dev
+          - libxmuu-dev
+          - libxpm-dev
+          - libxrandr-dev
+          - libxt-dev
+          - libxtst-dev
+          - libxv-dev
+          - elpa-yasnippet-snippets
+          - libtool-bin
+          - libvterm-dev
 
-- name: Configure Emacs
-  shell: |
-    ./configure --with-json
-  args:
-    chdir: /tmp/emacs-29.1
-    executable: /bin/bash
+    - name: Download and extract Emacs source
+      shell: |
+        wget -qO- http://ftp.gnu.org/gnu/emacs/emacs-29.1.tar.xz | tar -xJ
+      args:
+        chdir: /tmp
 
-- name: Compile Emacs
-  shell: |
-    make -j
-  args:
-    chdir: /tmp/emacs-29.1
-    executable: /bin/bash
+    - name: Clean Emacs
+      become: true
+      shell: |
+        sudo make clean
+      args:
+        chdir: /tmp/emacs-29.1
+        executable: /bin/bash
 
-- name: Install Emacs
-  become: true
-  shell: |
-    sudo make install
-  args:
-    chdir: /tmp/emacs-29.1
-    executable: /bin/bash
+    - name: Configure Emacs
+      shell: |
+        ./configure --with-json
+      args:
+        chdir: /tmp/emacs-29.1
+        executable: /bin/bash
 
-- name: Clean up
-  become: true
-  file:
-    path: /tmp/emacs-29.1
-    state: absent
+    - name: Compile Emacs
+      shell: |
+        make -j
+      args:
+        chdir: /tmp/emacs-29.1
+        executable: /bin/bash
 
-- name: Install Spacemacs
-  git:
-    version: develop
-    repo: https://github.com/syl20bnr/spacemacs
-    dest: ~/.emacs.d
+    - name: Install Emacs
+      become: true
+      shell: |
+        sudo make install
+      args:
+        chdir: /tmp/emacs-29.1
+        executable: /bin/bash
 
-- name: Copy .Spacemacs
+    - name: Clean up
+      become: true
+      file:
+        path: /tmp/emacs-29.1
+        state: absent
 
-  copy:
-    src: files/.spacemacs
-    dest: "~/.spacemacs"
+    - name: Install Spacemacs
+      git:
+        version: develop
+        repo: https://github.com/syl20bnr/spacemacs
+        dest: ~/.emacs.d
 
-- name: Pre-install Spacemacs
-  shell: |
-    emacs -nw -batch -u "${UNAME}" -q -kill
-  args:
-    executable: /bin/bash
+    - name: Copy .Spacemacs
+
+      copy:
+        src: files/.spacemacs
+        dest: "~/.spacemacs"
+
+    - name: Pre-install Spacemacs
+      shell: |
+        emacs -nw -batch -u "${UNAME}" -q -kill
+      args:
+        executable: /bin/bash
