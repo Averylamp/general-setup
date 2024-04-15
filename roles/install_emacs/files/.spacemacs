@@ -104,8 +104,8 @@ This function should only modify configuration layer settings."
                       (prisma-mode :location (recipe :fetcher github
                                                      :repo "pimeys/emacs-prisma-mode"))
                       (copilot :location (recipe :fetcher github
-                                                 :repo "zerolfx/copilot.el"
-                                                 :files ("*.el" "dist"))))
+                                                 :repo "copilot-emacs/copilot.el"
+                                                 :files ("*.el"))))
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages
    '()
