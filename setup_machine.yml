@@ -1,6 +1,6 @@
 ---
 - name: Setup a new machine
-  hosts: localhost
+  hosts: avery-trout
   remote_user: avery
 
   tasks:
