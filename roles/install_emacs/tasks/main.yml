@@ -1,4 +1,8 @@
 ---
+- name: Set fact for Emacs version
+  set_fact:
+    emacs_version: None
+
 - name: Get Emacs version
   command: emacs --version
   register: emacs_version_output

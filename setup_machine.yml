@@ -1,6 +1,6 @@
 ---
 - name: Setup a new machine
-  hosts: avery-trout
+  hosts: avery-tuna avery-perch
   remote_user: avery
 
   tasks:
