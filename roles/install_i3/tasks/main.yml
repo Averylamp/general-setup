@@ -23,7 +23,7 @@
 
 # Build i3-status
 - name: Build i3-status
-  shell: cargo install --path . --locked
+  shell: ~/.cargo/bin/cargo install --path . --locked
   args:
     chdir: /tmp/i3status-rust
 
