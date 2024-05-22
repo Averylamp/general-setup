@@ -72,6 +72,8 @@
       # perf tools
       - nload
       - iperf
+      - iotop
+      - smartmontools
       - net-tools
       - vnstat
       - lm-sensors
